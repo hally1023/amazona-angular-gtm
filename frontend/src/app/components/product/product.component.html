@@ -1,6 +1,10 @@
 <div class="card">
   <a href="#">
-    <img class="medium" [src]="product?.image" alt="{product.name}" />
+    <img
+      class="medium"
+      [src]="'assets' + product?.image"
+      [alt]="product?.name"
+    />
   </a>
   <div class="card-body">
     <a href="#">

@@ -1,58 +1,58 @@
 <div class="rating">
   <span>
-    <i
-      [ngClass]="
+    <fa-icon
+      [icon]="
         rating! >= 1
-          ? 'fa fa-star'
+          ? faStarSolid
           : rating! >= 0.5
-          ? 'fa fa-star-half-o'
-          : 'fa fa-star-o'
+          ? faStarHalfSolid
+          : faStarRegular
       "
-    ></i>
+    ></fa-icon>
   </span>
   <span>
-    <i
-      [ngClass]="
+    <fa-icon
+      [icon]="
         rating! >= 2
-          ? 'fa fa-star'
+          ? faStarSolid
           : rating! >= 1.5
-          ? 'fa fa-star-half-o'
-          : 'fa fa-star-o'
+          ? faStarHalfSolid
+          : faStarRegular
       "
-    ></i>
+    ></fa-icon>
   </span>
   <span>
-    <i
-      [ngClass]="
+    <fa-icon
+      [icon]="
         rating! >= 3
-          ? 'fa fa-star'
+          ? faStarSolid
           : rating! >= 2.5
-          ? 'fa fa-star-half-o'
-          : 'fa fa-star-o'
+          ? faStarHalfSolid
+          : faStarRegular
       "
-    ></i>
+    ></fa-icon>
   </span>
   <span>
-    <i
-      [ngClass]="
+    <fa-icon
+      [icon]="
         rating! >= 4
-          ? 'fa fa-star'
+          ? faStarSolid
           : rating! >= 3.5
-          ? 'fa fa-star-half-o'
-          : 'fa fa-star-o'
+          ? faStarHalfSolid
+          : faStarRegular
       "
-    ></i>
+    ></fa-icon>
   </span>
   <span>
-    <i
-      [ngClass]="
+    <fa-icon
+      [icon]="
         rating! >= 5
-          ? 'fa fa-star'
+          ? faStarSolid
           : rating! >= 4.5
-          ? 'fa fa-star-half-o'
-          : 'fa fa-star-o'
+          ? faStarHalfSolid
+          : faStarRegular
       "
-    ></i>
+    ></fa-icon>
   </span>
   <span>{{ numReviews + " reviews" }}</span>
 </div>
