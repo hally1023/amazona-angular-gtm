@@ -14,11 +14,13 @@ import { SignInComponent } from './screens/sign-in/sign-in.component';
 
 const routes: Routes = [
   { path: 'cart/:id', component: CartComponent },
+  { path: 'cart', component: CartComponent },
   { path: 'product/:id/edit', component: ProductEditComponent },
   { path: 'signin', component: SignInComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'shipping', component: ShippingAddressComponent },
   { path: 'payment', component: PaymentMethodComponent },
+  { path: 'payment', component: PlaceOrderComponent },
   { path: 'order/:id', component: OrderComponent },
   { path: 'show-order/:id', component: OrderComponent },
   { path: 'thank-you/:id', component: OrderComponent },

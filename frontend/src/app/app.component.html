@@ -6,8 +6,10 @@
     <div>
       <a routerLink="/cart">
         Cart
-        <span *ngIf="'cartItems.length > 0'" class="badge">{{
-          "cartItems.length"
+<!--        if cartItems.length > 0-->
+        <span *ngIf="true" class="badge">{{
+          1
+          // cartItems.length
         }}</span>
       </a>
 
@@ -28,7 +30,8 @@
         </ul>
       </div> -->
 
-      <a *ngIf="'!userInfo'" routerLink="/signin">Sign In</a>
+<!--if !userInfo-->
+      <a *ngIf="true" routerLink="/signin">Sign In</a>
       <!-- <div *ngIf="'userInfo && userInfo.isAdmin'" class="dropdown">
         <a routerLink="#admin"> Admin <i class="fa fa-caret-down"></i> </a>
         <ul class="dropdown-content">
