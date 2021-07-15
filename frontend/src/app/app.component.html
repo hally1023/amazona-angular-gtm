@@ -1,21 +1,21 @@
 <div class="grid-container">
-  <header className="row">
+  <header class="row">
     <div>
-      <a className="brand" routerLink="/"> Hally's Shop </a>
+      <a class="brand" routerLink="/"> Hally's Shop </a>
     </div>
     <div>
       <a routerLink="/cart">
         Cart
-        <span *ngIf="'cartItems.length > 0'" className="badge">{{
+        <span *ngIf="'cartItems.length > 0'" class="badge">{{
           "cartItems.length"
         }}</span>
       </a>
 
-      <!-- <div *ngIf="'userInfo'" className="dropdown">
+      <!-- <div *ngIf="'userInfo'" class="dropdown">
         <a routerLink="#">
-          {{ "userInfo.name" }} <i className="fa fa-caret-down"></i>
+          {{ "userInfo.name" }} <i class="fa fa-caret-down"></i>
         </a>
-        <ul className="dropdown-content">
+        <ul class="dropdown-content">
           <li>
             <a routerLink="/profile">User Profile</a>
           </li>
@@ -29,9 +29,9 @@
       </div> -->
 
       <a *ngIf="'!userInfo'" routerLink="/signin">Sign In</a>
-      <!-- <div *ngIf="'userInfo && userInfo.isAdmin'" className="dropdown">
-        <a routerLink="#admin"> Admin <i className="fa fa-caret-down"></i> </a>
-        <ul className="dropdown-content">
+      <!-- <div *ngIf="'userInfo && userInfo.isAdmin'" class="dropdown">
+        <a routerLink="#admin"> Admin <i class="fa fa-caret-down"></i> </a>
+        <ul class="dropdown-content">
           <li>
             <a routerLink="/dashboard">Dashboard</a>
           </li>
@@ -51,5 +51,5 @@
   <main>
     <router-outlet></router-outlet>
   </main>
-  <footer className="row center">All right reserved</footer>
+  <footer class="row center">All right reserved</footer>
 </div>
