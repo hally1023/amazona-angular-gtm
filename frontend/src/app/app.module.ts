@@ -22,10 +22,43 @@ import { ProfileComponent } from './screens/profile/profile.component';
 import { RegisterComponent } from './screens/register/register.component';
 import { ShippingAddressComponent } from './screens/shipping-address/shipping-address.component';
 import { SignInComponent } from './screens/sign-in/sign-in.component';
+import { StoreModule } from '@ngrx/store';
+import { reducers, metaReducers } from './reducers';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
+import { EffectsModule } from '@ngrx/effects';
+import { AppEffects } from './app.effects';
 
 @NgModule({
-  declarations: [AppComponent, ProductComponent, RatingComponent, CheckoutStepsComponent, LoadingBoxComponent, MessageBoxComponent, HomeComponent, CartComponent, OrderHistoryComponent, OrderListComponent, OrderComponent, PaymentMethodComponent, PlaceOrderComponent, ProductEditComponent, ProductListComponent, ProfileComponent, RegisterComponent, ShippingAddressComponent, SignInComponent],
-  imports: [BrowserModule, AppRoutingModule, FontAwesomeModule],
+  declarations: [
+    AppComponent,
+    ProductComponent,
+    RatingComponent,
+    CheckoutStepsComponent,
+    LoadingBoxComponent,
+    MessageBoxComponent,
+    HomeComponent,
+    CartComponent,
+    OrderHistoryComponent,
+    OrderListComponent,
+    OrderComponent,
+    PaymentMethodComponent,
+    PlaceOrderComponent,
+    ProductEditComponent,
+    ProductListComponent,
+    ProfileComponent,
+    RegisterComponent,
+    ShippingAddressComponent,
+    SignInComponent,
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FontAwesomeModule,
+    StoreModule.forRoot(reducers, { metaReducers }),
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
+    EffectsModule.forRoot([AppEffects]),
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

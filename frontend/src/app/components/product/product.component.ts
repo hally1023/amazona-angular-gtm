@@ -1,20 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-
-interface Product {
-  _id: string;
-  name: string;
-  category: string;
-  image: string;
-  price: number;
-  countInStock: number;
-  brand: string;
-  rating: number;
-  numReviews: number;
-  description: string;
-  __v: number;
-  createdAt: string;
-  updatedAt: string;
-}
+import { Product } from 'src/app/models/product.model';
 
 @Component({
   selector: 'app-product',
