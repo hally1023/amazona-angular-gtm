@@ -1,14 +1,14 @@
 import { createAction, props } from '@ngrx/store';
 import { Product } from 'src/app/models/product.model';
 
-export const loadListProducts = createAction('[ListProduct] List Products');
+export const listProducts = createAction('[ListProduct] List Products');
 
-export const loadListProductsSuccess = createAction(
+export const listProductsSuccess = createAction(
   '[ListProduct] List Products Success',
   props<{ data: Product[] }>()
 );
 
-export const loadListProductsFailure = createAction(
+export const listProductsFailure = createAction(
   '[ListProduct] List Products Failure',
   props<{ error: any }>()
 );
