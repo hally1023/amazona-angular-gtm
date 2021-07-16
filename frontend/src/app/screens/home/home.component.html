@@ -1,5 +1,8 @@
+<app-loading-box *ngIf="loading"></app-loading-box>
+<app-message-box *ngIf="error" variant="danger"></app-message-box>
+
 <div class="row center">
-  <div *ngFor="let product of products$ | async">
+  <div *ngFor="let product of products">
     <app-product [product]="product"></app-product>
   </div>
 </div>

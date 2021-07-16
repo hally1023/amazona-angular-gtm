@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { detailsProducts } from 'src/app/actions/product/details-product.actions';
 import { Product } from 'src/app/models/product.model';
+import { State } from 'src/app/reducers';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
   selector: 'app-product-details',
@@ -7,8 +11,27 @@ import { Product } from 'src/app/models/product.model';
   styleUrls: ['./product-details.component.scss'],
 })
 export class ProductDetailsComponent implements OnInit {
-  product: Product | null = null;
-  constructor() {}
+  qty = 1;
+  loading: boolean | undefined;
+  error: string | undefined;
+  product: Product | undefined;
+  countArr: number[] | undefined;
 
-  ngOnInit(): void {}
+  productDetails = this.store
+    .select((state) => state.productDetails)
+    .subscribe((productDetails) => {
+      this.loading = productDetails.loading;
+      this.error = productDetails.error;
+      this.product = productDetails.product;
+      this.countArr = [...Array(productDetails.product?.countInStock).keys()];
+    });
+
+  constructor(private store: Store<State>, private route: ActivatedRoute) {}
+
+  ngOnInit(): void {
+    this.route.params.subscribe((params) => {
+      const productId = params.id;
+      if (productId) this.store.dispatch(detailsProducts({ productId }));
+    });
+  }
 }

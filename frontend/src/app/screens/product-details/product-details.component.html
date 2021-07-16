@@ -1,8 +1,15 @@
-<div>
+<app-loading-box *ngIf="loading"></app-loading-box>
+<app-message-box *ngIf="error" variant="danger"></app-message-box>
+
+<div *ngIf="product">
   <a routerLink="/">Back to result</a>
   <div class="row top">
     <div class="col-2">
-      <img class="large" [src]="product?.image" [alt]="product?.name" />
+      <img
+        class="large"
+        [src]="'assets/' + product?.image"
+        [alt]="product?.name"
+      />
     </div>
     <div class="col-1">
       <ul>
@@ -51,18 +58,11 @@
               <div class="row">
                 <div>Qty</div>
                 <div>
-                  <!-- <select
-                        value={qty}
-                        onChange={(e) => setQty(e.target.value)}
-                      >
-                        {[...Array(product.countInStock).keys()].map(
-                          (x) => (
-                            <option key={x + 1} value={x + 1}>
-                              {x + 1}
-                            </option>
-                          )
-                        )}
-                      </select> -->
+                  <select [(ngModel)]="qty">
+                    <option *ngFor="let x of countArr" [value]="x + 1">
+                      {{ x + 1 }}
+                    </option>
+                  </select>
                 </div>
               </div>
             </li>
