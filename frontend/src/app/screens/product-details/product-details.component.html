@@ -1,1 +1,79 @@
-<p>product-details works!</p>
+<div>
+  <a routerLink="/">Back to result</a>
+  <div class="row top">
+    <div class="col-2">
+      <img class="large" [src]="product?.image" [alt]="product?.name" />
+    </div>
+    <div class="col-1">
+      <ul>
+        <li>
+          <h1>{{ product?.name }}</h1>
+        </li>
+        <li>
+          <app-rating
+            [rating]="product?.rating"
+            [numReviews]="product?.numReviews"
+          ></app-rating>
+        </li>
+        <li>Pirce : ${{ product?.price }}</li>
+        <li>
+          Description:
+          <p>{{ product?.description }}</p>
+        </li>
+      </ul>
+    </div>
+    <div class="col-1">
+      <div class="card card-body">
+        <ul>
+          <li>
+            <div class="row">
+              <div>Price</div>
+              <div class="price">${{ product?.price }}</div>
+            </div>
+          </li>
+          <li>
+            <div class="row">
+              <div>Status</div>
+              <div>
+                <span *ngIf="product?.countInStock! > 0" class="success"
+                  >In Stock</span
+                >
+
+                <span *ngIf="!(product?.countInStock! > 0)" class="danger"
+                  >Unavailable</span
+                >
+              </div>
+            </div>
+          </li>
+
+          <ng-container *ngIf="product?.countInStock! > 0">
+            <li>
+              <div class="row">
+                <div>Qty</div>
+                <div>
+                  <!-- <select
+                        value={qty}
+                        onChange={(e) => setQty(e.target.value)}
+                      >
+                        {[...Array(product.countInStock).keys()].map(
+                          (x) => (
+                            <option key={x + 1} value={x + 1}>
+                              {x + 1}
+                            </option>
+                          )
+                        )}
+                      </select> -->
+                </div>
+              </div>
+            </li>
+            <li>
+              <button onClick="{addToCartHandler}" class="primary block">
+                Add to Cart
+              </button>
+            </li>
+          </ng-container>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
