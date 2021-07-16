@@ -6,6 +6,7 @@ import { OrderHistoryComponent } from './screens/order-history/order-history.com
 import { OrderComponent } from './screens/order/order.component';
 import { PaymentMethodComponent } from './screens/payment-method/payment-method.component';
 import { PlaceOrderComponent } from './screens/place-order/place-order.component';
+import { ProductDetailsComponent } from './screens/product-details/product-details.component';
 import { ProductEditComponent } from './screens/product-edit/product-edit.component';
 import { ProfileComponent } from './screens/profile/profile.component';
 import { RegisterComponent } from './screens/register/register.component';
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'cart/:id', component: CartComponent },
   { path: 'cart', component: CartComponent },
   { path: 'product/:id/edit', component: ProductEditComponent },
+  { path: 'product/:id', component: ProductDetailsComponent },
   { path: 'signin', component: SignInComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'shipping', component: ShippingAddressComponent },

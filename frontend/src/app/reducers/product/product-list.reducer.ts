@@ -15,6 +15,7 @@ export interface State {
 }
 
 export const initialState: State = {
+  loading: true,
   products: [],
 };
 
@@ -25,5 +26,5 @@ export const reducer = createReducer(
     loading: false,
     products: data,
   })),
-  on(listProductsFailure, (state, { error }) => ({ error }))
+  on(listProductsFailure, (state, { error }) => ({ loading: false, error }))
 );

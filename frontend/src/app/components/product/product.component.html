@@ -1,5 +1,5 @@
 <div class="card">
-  <a href="#">
+  <a [routerLink]="'/product/' + product?._id">
     <img
       class="medium"
       [src]="'assets' + product?.image"
@@ -7,7 +7,7 @@
     />
   </a>
   <div class="card-body">
-    <a href="#">
+    <a [routerLink]="'/product/' + product?._id">
       <h2>{{ product?.name }}</h2>
     </a>
     <app-rating

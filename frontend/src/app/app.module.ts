@@ -29,6 +29,7 @@ import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { AppEffects } from './app.effects';
 import { HttpClientModule } from '@angular/common/http';
+import { ProductDetailsComponent } from './screens/product-details/product-details.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { HttpClientModule } from '@angular/common/http';
     RegisterComponent,
     ShippingAddressComponent,
     SignInComponent,
+    ProductDetailsComponent,
   ],
   imports: [
     BrowserModule,
