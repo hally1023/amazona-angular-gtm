@@ -1,4 +1,5 @@
-<div *ngFor="let product of products$ | async" className="row center">
-  {{ product.name }}
+<div class="row center">
+  <div *ngFor="let product of products$ | async">
+    <app-product [product]="product"></app-product>
+  </div>
 </div>
-<div>Hello</div>

@@ -8,7 +8,7 @@ import { Product } from '../models/product.model';
 })
 export class ProductsService {
   constructor(private http: HttpClient) {}
-  public getProducts(): Observable<Array<Product>> {
+  public getProducts(): Observable<Product[]> {
     return this.http.get<Product[]>('http://localhost:5000/api/products');
   }
 }

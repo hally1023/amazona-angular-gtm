@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductsService } from 'src/app/services/products.service';
 import { Store, select } from '@ngrx/store';
-import { listProductsSuccess } from 'src/app/actions/product/list-product.actions';
-import { selectProducts } from 'src/app/selectors/product/product.selectors';
+import {
+  listProducts,
+  listProductsSuccess,
+} from 'src/app/actions/product/list-product.actions';
+import { selectProductList, State } from 'src/app/reducers';
 
 @Component({
   selector: 'app-home',
@@ -10,15 +13,14 @@ import { selectProducts } from 'src/app/selectors/product/product.selectors';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  products$: any = this.store.pipe(select(selectProducts as any));
+  products$ = this.store.pipe(select(selectProductList));
 
-  constructor(private productsService: ProductsService, private store: Store) {}
+  constructor(
+    private productsService: ProductsService,
+    private store: Store<State>
+  ) {}
 
   ngOnInit(): void {
-    this.productsService
-      .getProducts()
-      .subscribe((products) =>
-        this.store.dispatch(listProductsSuccess({ data: products }))
-      );
+    this.store.dispatch(listProducts());
   }
 }

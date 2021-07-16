@@ -22,3 +22,8 @@ export const reducers: ActionReducerMap<State> = {
 export const metaReducers: MetaReducer<State>[] = !environment.production
   ? []
   : [];
+
+export const selectProductList = createSelector(
+  (state: State) => state.productList,
+  (productList) => productList.products
+);
