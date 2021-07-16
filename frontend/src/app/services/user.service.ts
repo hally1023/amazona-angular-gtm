@@ -23,6 +23,7 @@ export class UserService {
   detailsUser(userId: string) {
     return this.http.get<UserDetails>(`${this.apiUrl}/users/${userId}`);
   }
+
   updateUserProfile(
     user: Partial<{ name: string; email: string; password: string }>
   ) {

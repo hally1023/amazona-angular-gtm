@@ -1,5 +1,5 @@
 <div>
-  <form class="form">
+  <form class="form" (ngSubmit)="onSubmit($event)">
     <div>
       <h1>Sign In</h1>
     </div>
@@ -7,39 +7,41 @@
     <app-loading-box *ngIf="false"></app-loading-box>
 
     <!--    if error-->
-    <app-message-box *ngIf="false" variant="danger">{{"Error here"}}</app-message-box>
+    <app-message-box *ngIf="false" variant="danger">{{
+      "Error here"
+    }}</app-message-box>
 
     <div>
       <label for="email">Email address</label>
       <input
         type="email"
+        name="email"
         id="email"
         placeholder="Enter email"
         required
+        [(ngModel)]="email"
       />
     </div>
     <div>
       <label for="password">Password</label>
       <input
         type="password"
+        name="password"
         id="password"
         placeholder="Enter password"
         required
+        [(ngModel)]="password"
       />
     </div>
     <div>
       <label></label>
-      <button class="primary" type="submit">
-        Sign In
-      </button>
+      <button class="primary" type="submit">Sign In</button>
     </div>
     <div>
       <label></label>
       <div>
         New customer?
-        <a routerLink="/register" >
-        Create your account
-        </a>
+        <a routerLink="/register"> Create your account </a>
       </div>
     </div>
   </form>

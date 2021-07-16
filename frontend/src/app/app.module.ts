@@ -27,10 +27,11 @@ import { reducers, metaReducers } from './reducers';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
-import { AppEffects } from './app.effects';
+import { ProductEffects } from './effects/product.effects';
 import { HttpClientModule } from '@angular/common/http';
 import { ProductDetailsComponent } from './screens/product-details/product-details.component';
 import { FormsModule } from '@angular/forms';
+import { UserEffects } from './effects/user.effects';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,7 @@ import { FormsModule } from '@angular/forms';
     FontAwesomeModule,
     StoreModule.forRoot(reducers, { metaReducers }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
-    EffectsModule.forRoot([AppEffects]),
+    EffectsModule.forRoot([ProductEffects, UserEffects]),
     FormsModule,
   ],
   providers: [],

@@ -1,21 +1,22 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { ProductsService } from 'src/app/services/products.service';
+import { catchError, exhaustMap, map } from 'rxjs/operators';
+import { of } from 'rxjs';
+
 import {
   listProducts,
   listProductsFailure,
   listProductsSuccess,
-} from './actions/product/list-product.actions';
-import { ProductsService } from './services/products.service';
-import { catchError, exhaustMap, map } from 'rxjs/operators';
-import { of } from 'rxjs';
+} from 'src/app/actions/product/list-product.actions';
 import {
   detailsProducts,
   detailsProductsFailure,
   detailsProductsSuccess,
-} from './actions/product/details-product.actions';
+} from 'src/app/actions/product/details-product.actions';
 
 @Injectable()
-export class AppEffects {
+export class ProductEffects {
   listProducts$ = createEffect(() =>
     this.actions$.pipe(
       ofType(listProducts),
@@ -28,7 +29,7 @@ export class AppEffects {
     )
   );
 
-  detailsProduct = createEffect(() =>
+  detailsProduct$ = createEffect(() =>
     this.actions$.pipe(
       ofType(detailsProducts),
       exhaustMap((action) =>
