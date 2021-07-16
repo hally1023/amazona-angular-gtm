@@ -7,25 +7,25 @@
     <div class="col-2">
       <img
         class="large"
-        [src]="'assets/' + product?.image"
-        [alt]="product?.name"
+        [src]="'assets/' + product.image"
+        [alt]="product.name"
       />
     </div>
     <div class="col-1">
       <ul>
         <li>
-          <h1>{{ product?.name }}</h1>
+          <h1>{{ product.name }}</h1>
         </li>
         <li>
           <app-rating
-            [rating]="product?.rating"
-            [numReviews]="product?.numReviews"
+            [rating]="product.rating"
+            [numReviews]="product.numReviews"
           ></app-rating>
         </li>
-        <li>Pirce : ${{ product?.price }}</li>
+        <li>Pirce : ${{ product.price }}</li>
         <li>
           Description:
-          <p>{{ product?.description }}</p>
+          <p>{{ product.description }}</p>
         </li>
       </ul>
     </div>
@@ -35,25 +35,25 @@
           <li>
             <div class="row">
               <div>Price</div>
-              <div class="price">${{ product?.price }}</div>
+              <div class="price">${{ product.price }}</div>
             </div>
           </li>
           <li>
             <div class="row">
               <div>Status</div>
               <div>
-                <span *ngIf="product?.countInStock! > 0" class="success"
+                <span *ngIf="product.countInStock > 0" class="success"
                   >In Stock</span
                 >
 
-                <span *ngIf="!(product?.countInStock! > 0)" class="danger"
+                <span *ngIf="!(product.countInStock > 0)" class="danger"
                   >Unavailable</span
                 >
               </div>
             </div>
           </li>
 
-          <ng-container *ngIf="product?.countInStock! > 0">
+          <ng-container *ngIf="product.countInStock > 0">
             <li>
               <div class="row">
                 <div>Qty</div>

@@ -3,11 +3,13 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Product } from '../models/product.model';
 
+export const apiUrl = 'http://localhost:5000/api';
+
 @Injectable({
   providedIn: 'root',
 })
 export class ProductsService {
-  apiUrl = 'http://localhost:5000/api';
+  apiUrl = apiUrl;
   constructor(private http: HttpClient) {}
   public getProducts(): Observable<Product[]> {
     return this.http.get<Product[]>(`${this.apiUrl}/products`);
