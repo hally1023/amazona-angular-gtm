@@ -17,4 +17,8 @@ export class OrderService {
       order
     );
   }
+
+  public deleteOrder(orderId: string) {
+    return this.http.delete(`${this.apiUrl}/orders/${orderId}`);
+  }
 }

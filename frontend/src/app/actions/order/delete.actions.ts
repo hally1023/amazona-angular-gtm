@@ -1,11 +1,11 @@
 import { createAction, props } from '@ngrx/store';
 
-export const orderDelete = createAction('[Delete] Order Delete');
-
-export const orderDeleteSuccess = createAction(
-  '[Delete] Order Delete Success',
-  props<{ data: any }>()
+export const orderDelete = createAction(
+  '[Delete] Order Delete',
+  props<{ orderId: string }>()
 );
+
+export const orderDeleteSuccess = createAction('[Delete] Order Delete Success');
 
 export const orderDeleteFailure = createAction(
   '[Delete] Order Delete Failure',
