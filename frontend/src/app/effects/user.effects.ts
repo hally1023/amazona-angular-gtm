@@ -14,6 +14,7 @@ import {
   userRegisterSuccess,
 } from '../actions/user/register.actions';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Injectable()
 export class UserEffects {
@@ -23,7 +24,7 @@ export class UserEffects {
       exhaustMap(({ email, password }) =>
         this.userService.signIn({ email, password }).pipe(
           map((authDetails) => userSigninSuccess({ data: authDetails })),
-          tap(() => this.router.navigate(['/'])),
+          tap(() => this.location.back()),
           catchError((error) =>
             of(userSigninFailure({ error: error.error.message }))
           )
@@ -47,6 +48,7 @@ export class UserEffects {
   constructor(
     private actions$: Actions,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private location: Location
   ) {}
 }
