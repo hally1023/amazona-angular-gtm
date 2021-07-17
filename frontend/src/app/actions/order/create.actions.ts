@@ -1,8 +1,9 @@
 import { createAction, props } from '@ngrx/store';
 import { CartItem } from 'src/app/models/cart-item.model';
+import { Order } from 'src/app/models/order.model';
 import { ShippingAddress } from 'src/app/models/shipping-address.model';
 
-interface OrderCreatePayload {
+export interface OrderCreatePayload {
   cartItems: CartItem[];
   shippingAddress: ShippingAddress;
   paymentMethod: string;
@@ -20,7 +21,7 @@ export const orderCreate = createAction(
 
 export const orderCreateSuccess = createAction(
   '[Create] Order Create Success',
-  props<{ data: any }>()
+  props<{ data: Order }>()
 );
 
 export const orderCreateFailure = createAction(
