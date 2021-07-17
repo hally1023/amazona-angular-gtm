@@ -1,1 +1,55 @@
-<p>profile works!</p>
+<div>
+  <form #updateForm="ngForm" class="form" onSubmit="{submitHandler}">
+    <div>
+      <h1>User Profile</h1>
+    </div>
+
+    <!-- if loading -->
+    <app-loading-box *ngIf="false"></app-loading-box>
+    <!-- if error -->
+    <app-message-box *ngIf="false" variant="danger">{{
+      "error"
+    }}</app-message-box>
+
+    <ng-container>
+      <!-- if loadingUpdate -->
+
+      <app-loading-box *ngIf="false"></app-loading-box>
+
+      <!-- if errorUpdate -->
+      <app-message-box *ngIf="false" variant="danger">{{
+        "error"
+      }}</app-message-box>
+
+      <!-- if successUpdate -->
+      <app-message-box *ngIf="false" variant="danger">
+        Profile Updated Successfully</app-message-box
+      >
+
+      <div>
+        <label for="name">Name</label>
+        <input id="name" type="text" placeholder="Enter name" />
+      </div>
+      <div>
+        <label for="email">Email</label>
+        <input id="email" type="email" placeholder="Enter email" />
+      </div>
+      <div>
+        <label for="password">Password</label>
+        <input id="password" type="password" placeholder="Enter password" />
+      </div>
+      <div>
+        <label for="confirmPassword">confirm Password</label>
+        <input
+          id="confirmPassword"
+          type="password"
+          placeholder="Enter confirm password"
+        />
+      </div>
+      <div>
+        <label></label>
+        <button class="primary" type="submit">Update</button>
+      </div>
+    </ng-container>
+  </form>
+</div>
