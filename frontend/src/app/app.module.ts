@@ -33,6 +33,7 @@ import { ProductDetailsComponent } from './screens/product-details/product-detai
 import { FormsModule } from '@angular/forms';
 import { UserEffects } from './effects/user.effects';
 import { OrderEffects } from './effects/order.effects';
+import { CartEffects } from './effects/cart.effects';
 
 @NgModule({
   declarations: [
@@ -64,7 +65,7 @@ import { OrderEffects } from './effects/order.effects';
     FontAwesomeModule,
     StoreModule.forRoot(reducers, { metaReducers }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
-    EffectsModule.forRoot([ProductEffects, UserEffects, OrderEffects]),
+    EffectsModule.forRoot([ProductEffects, UserEffects, OrderEffects, CartEffects]),
     FormsModule,
   ],
   providers: [],

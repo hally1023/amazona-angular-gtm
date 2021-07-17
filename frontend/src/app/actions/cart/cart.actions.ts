@@ -5,7 +5,17 @@ import { ShippingAddress } from 'src/app/models/shipping-address.model';
 
 export const cartAddItem = createAction(
   '[Cart] Add Item',
+  props<{ productId: string; qty: number }>()
+);
+
+export const cartAddItemSuccess = createAction(
+  '[Cart] Add Item Sucesss',
   props<{ item: CartItem }>()
+);
+
+export const cartAddItemFailure = createAction(
+  '[Cart] Add Item Failure',
+  props<{ error: any }>()
 );
 
 export const cartRemoveItem = createAction(
