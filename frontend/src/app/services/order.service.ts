@@ -33,4 +33,8 @@ export class OrderService {
   public listOrders() {
     return this.http.get<Order[]>(`${this.apiUrl}/orders`);
   }
+
+  public listOrderMine() {
+    return this.http.get<Order[]>(`${this.apiUrl}/orders/mine`);
+  }
 }

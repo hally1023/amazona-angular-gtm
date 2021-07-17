@@ -27,6 +27,11 @@ import {
   orderListFailure,
   orderListSuccess,
 } from '../actions/order/list.actions';
+import {
+  orderMineList,
+  orderMineListFailure,
+  orderMineListSuccess,
+} from '../actions/order/mine-list.actions';
 import { OrderService } from '../services/order.service';
 
 @Injectable()
@@ -86,6 +91,18 @@ export class OrderEffects {
         this.orderService.listOrders().pipe(
           map((orders) => orderListSuccess({ data: orders })),
           catchError((error) => of(orderListFailure({ error })))
+        )
+      )
+    )
+  );
+
+  listOrderMine$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(orderMineList),
+      exhaustMap((action) =>
+        this.orderService.listOrderMine().pipe(
+          map((orders) => orderMineListSuccess({ data: orders })),
+          catchError((error) => of(orderMineListFailure({ error })))
         )
       )
     )
