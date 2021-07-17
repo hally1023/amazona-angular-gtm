@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { userSignin } from '../../actions/user/signin.actions';
 
 @Component({
   selector: 'app-sign-in',
@@ -12,9 +14,12 @@ export class SignInComponent implements OnInit {
   onSubmit(event: any) {
     event.preventDefault();
 
-    console.log({ email: this.email, password: this.password });
+    this.store.dispatch(
+      userSignin({ email: this.email, password: this.password })
+    );
   }
-  constructor() {}
+
+  constructor(private store: Store) {}
 
   ngOnInit(): void {}
 }

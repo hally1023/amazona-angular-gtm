@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { AuthDetails } from 'src/app/models/auth-details';
+import { UserDetails } from 'src/app/models/user-details';
 
 export const userSignin = createAction(
   '[Signin] User Signin',
@@ -8,7 +8,7 @@ export const userSignin = createAction(
 
 export const userSigninSuccess = createAction(
   '[Signin] User Signin Success',
-  props<{ data: AuthDetails }>()
+  props<{ data: UserDetails }>()
 );
 
 export const userSigninFailure = createAction(

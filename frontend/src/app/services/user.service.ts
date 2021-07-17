@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AuthDetails } from '../models/auth-details';
 import { UserDetails } from '../models/user-details';
 import { apiUrl } from './products.service';
 
@@ -13,11 +12,11 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
   signIn(user: { email: string; password: string }) {
-    return this.http.post<AuthDetails>(`${this.apiUrl}/users/signin`, user);
+    return this.http.post<UserDetails>(`${this.apiUrl}/users/signin`, user);
   }
 
   register(user: { name: string; email: string; password: string }) {
-    return this.http.post<AuthDetails>(`${this.apiUrl}/users/register`, user);
+    return this.http.post<UserDetails>(`${this.apiUrl}/users/register`, user);
   }
 
   detailsUser(userId: string) {

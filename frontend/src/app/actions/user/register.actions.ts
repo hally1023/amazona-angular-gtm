@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { AuthDetails } from 'src/app/models/auth-details';
+import { UserDetails } from 'src/app/models/user-details';
 
 export const userRegister = createAction(
   '[Register] User Register',
@@ -12,7 +12,7 @@ export const userRegister = createAction(
 
 export const userRegisterSuccess = createAction(
   '[Register] User Register Success',
-  props<{ data: AuthDetails }>()
+  props<{ data: UserDetails }>()
 );
 
 export const userRegisterFailure = createAction(
