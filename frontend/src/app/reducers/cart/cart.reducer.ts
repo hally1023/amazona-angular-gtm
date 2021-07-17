@@ -1,6 +1,6 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import {
-  cartAddItem,
+  cartAddItemSuccess,
   cartEmpty,
   cartRemoveItem,
   cartSavePaymentMethod,
@@ -24,7 +24,7 @@ export const initialState: State = {
 
 export const reducer = createReducer(
   initialState,
-  on(cartAddItem, (state, { item }) => {
+  on(cartAddItemSuccess, (state, { item }) => {
     const existItem = state.cartItems.find((x) => x.product === item.product);
     if (existItem) {
       return {

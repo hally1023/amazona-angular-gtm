@@ -6,13 +6,14 @@
     <div>
       <a routerLink="/cart">
         Cart
-        <!--        if cartItems.length > 0-->
-        <span *ngIf="true" class="badge">{{ 1 // cartItems.length }}</span>
+        <span *ngIf="cartItems.length > 0" class="badge">{{
+          cartItems.length
+        }}</span>
       </a>
 
-      <!-- <div *ngIf="'userInfo'" class="dropdown">
+      <div *ngIf="userInfo" class="dropdown">
         <a routerLink="#">
-          {{ "userInfo.name" }} <i class="fa fa-caret-down"></i>
+          {{ userInfo.name }} <i class="fa fa-caret-down"></i>
         </a>
         <ul class="dropdown-content">
           <li>
@@ -25,11 +26,10 @@
             <a routerLink="#signout" onClick="{signoutHandler}"> Sign Out </a>
           </li>
         </ul>
-      </div> -->
+      </div>
 
-      <!--if !userInfo-->
-      <a *ngIf="true" routerLink="/signin">Sign In</a>
-      <!-- <div *ngIf="'userInfo && userInfo.isAdmin'" class="dropdown">
+      <a *ngIf="!userInfo" routerLink="/signin">Sign In</a>
+      <div *ngIf="userInfo && userInfo.isAdmin" class="dropdown">
         <a routerLink="#admin"> Admin <i class="fa fa-caret-down"></i> </a>
         <ul class="dropdown-content">
           <li>
@@ -45,7 +45,7 @@
             <a routerLink="/userlist">Users</a>
           </li>
         </ul>
-      </div> -->
+      </div>
     </div>
   </header>
   <main>
