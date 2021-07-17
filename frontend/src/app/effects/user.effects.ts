@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { UserService } from '../services/user.service';
-import { catchError, exhaustMap, map } from 'rxjs/operators';
+import { catchError, exhaustMap, map, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import {
   userSignin,
@@ -13,6 +13,7 @@ import {
   userRegisterFailure,
   userRegisterSuccess,
 } from '../actions/user/register.actions';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class UserEffects {
@@ -22,7 +23,10 @@ export class UserEffects {
       exhaustMap(({ email, password }) =>
         this.userService.signIn({ email, password }).pipe(
           map((authDetails) => userSigninSuccess({ data: authDetails })),
-          catchError((error) => of(userSigninFailure({ error })))
+          tap(() => this.router.navigate(['/'])),
+          catchError((error) =>
+            of(userSigninFailure({ error: error.error.message }))
+          )
         )
       )
     )
@@ -40,5 +44,9 @@ export class UserEffects {
     )
   );
 
-  constructor(private actions$: Actions, private userService: UserService) {}
+  constructor(
+    private actions$: Actions,
+    private userService: UserService,
+    private router: Router
+  ) {}
 }

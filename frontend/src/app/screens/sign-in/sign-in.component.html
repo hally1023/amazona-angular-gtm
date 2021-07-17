@@ -1,14 +1,12 @@
 <div>
-  <form class="form" (ngSubmit)="onSubmit($event)">
+  <form #signInForm="ngForm" class="form" (ngSubmit)="onSubmit()">
     <div>
       <h1>Sign In</h1>
     </div>
-    <!--    if loading-->
-    <app-loading-box *ngIf="false"></app-loading-box>
+    <app-loading-box *ngIf="loading"></app-loading-box>
 
-    <!--    if error-->
-    <app-message-box *ngIf="false" variant="danger">{{
-      "Error here"
+    <app-message-box *ngIf="error" variant="danger">{{
+      error
     }}</app-message-box>
 
     <div>
@@ -20,6 +18,7 @@
         placeholder="Enter email"
         required
         [(ngModel)]="email"
+        email
       />
     </div>
     <div>
@@ -35,7 +34,9 @@
     </div>
     <div>
       <label></label>
-      <button class="primary" type="submit">Sign In</button>
+      <button [disabled]="!signInForm.valid" class="primary" type="submit">
+        Sign In
+      </button>
     </div>
     <div>
       <label></label>
