@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { OrderCreatePayload } from '../actions/order/create.actions';
+import { PaymentResultPayload } from '../actions/order/pay.actions';
 import { Order } from '../models/order.model';
 import { apiUrl } from './products.service';
 
@@ -36,5 +37,9 @@ export class OrderService {
 
   public listOrderMine() {
     return this.http.get<Order[]>(`${this.apiUrl}/orders/mine`);
+  }
+
+  public payOrder(orderId: string, paymentResult: PaymentResultPayload) {
+    return this.http.put(`${this.apiUrl}/orders/${orderId}/pay`, paymentResult);
   }
 }
