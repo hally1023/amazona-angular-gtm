@@ -1,13 +1,13 @@
 import { createAction, props } from '@ngrx/store';
+import { UserDetails } from 'src/app/models/user-details.model';
 
 export const userUpdateProfile = createAction(
   '[UpdateProfile] User UpdateProfile',
-  props<{ userId: string }>()
+  props<{ user: Partial<UserDetails> }>()
 );
 
 export const userUpdateProfileSuccess = createAction(
-  '[UpdateProfile] User UpdateProfile Success',
-  props<{ data: any }>()
+  '[UpdateProfile] User UpdateProfile Success'
 );
 
 export const userUpdateProfileFailure = createAction(

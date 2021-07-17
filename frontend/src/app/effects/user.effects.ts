@@ -15,6 +15,15 @@ import {
 } from '../actions/user/register.actions';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
+import {
+  userDetails,
+  userDetailsFailure,
+  userDetailsSuccess,
+} from '../actions/user/details.actions';
+import {
+  userUpdateProfile,
+  userUpdateProfileSuccess,
+} from '../actions/user/update-profile.actions';
 
 @Injectable()
 export class UserEffects {
@@ -39,7 +48,38 @@ export class UserEffects {
       exhaustMap(({ email, password, name }) =>
         this.userService.register({ email, password, name }).pipe(
           map((authDetails) => userRegisterSuccess({ data: authDetails })),
-          catchError((error) => of(userRegisterFailure({ error })))
+          tap(() => this.location.back()),
+          catchError((error) =>
+            of(userRegisterFailure({ error: error.error.message }))
+          )
+        )
+      )
+    )
+  );
+
+  detailsUser$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(userDetails),
+      exhaustMap(({ userId }) =>
+        this.userService.detailsUser(userId).pipe(
+          map((userDetails) => userDetailsSuccess({ data: userDetails })),
+          catchError((error) =>
+            of(userDetailsFailure({ error: error.error.message }))
+          )
+        )
+      )
+    )
+  );
+
+  updateUserProfile$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(userUpdateProfile),
+      exhaustMap(({ user }) =>
+        this.userService.updateUserProfile(user).pipe(
+          map(() => userUpdateProfileSuccess()),
+          catchError((error) =>
+            of(userDetailsFailure({ error: error.error.message }))
+          )
         )
       )
     )
