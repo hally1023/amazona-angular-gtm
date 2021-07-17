@@ -42,4 +42,8 @@ export class OrderService {
   public payOrder(orderId: string, paymentResult: PaymentResultPayload) {
     return this.http.put(`${this.apiUrl}/orders/${orderId}/pay`, paymentResult);
   }
+
+  public refundOrder(orderId: string) {
+    return this.http.put(`${this.apiUrl}/orders/${orderId}/refund`, {});
+  }
 }

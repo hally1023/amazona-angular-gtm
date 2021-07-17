@@ -37,6 +37,11 @@ import {
   orderPayFailure,
   orderPaySuccess,
 } from '../actions/order/pay.actions';
+import {
+  orderRefund,
+  orderRefundFailure,
+  orderRefundSuccess,
+} from '../actions/order/refund.actions';
 import { OrderService } from '../services/order.service';
 
 @Injectable()
@@ -120,6 +125,18 @@ export class OrderEffects {
         this.orderService.payOrder(action.orderId, action.paymentResult).pipe(
           map(() => orderPaySuccess()),
           catchError((error) => of(orderPayFailure({ error })))
+        )
+      )
+    )
+  );
+
+  refundOrder$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(orderRefund),
+      exhaustMap((action) =>
+        this.orderService.refundOrder(action.orderId).pipe(
+          map(() => orderRefundSuccess()),
+          catchError((error) => of(orderRefundFailure({ error })))
         )
       )
     )
