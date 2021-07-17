@@ -4,7 +4,7 @@ import {
   userDetailsFailure,
   userDetailsSuccess,
 } from 'src/app/actions/user/details.actions';
-import { UserDetails } from 'src/app/models/user-details';
+import { UserDetails } from 'src/app/models/user-details.model';
 
 export const userDetailsFeatureKey = 'userDetails';
 

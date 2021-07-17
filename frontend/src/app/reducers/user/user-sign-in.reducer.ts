@@ -4,7 +4,7 @@ import {
   userSigninFailure,
   userSigninSuccess,
 } from 'src/app/actions/user/signin.actions';
-import { UserDetails } from 'src/app/models/user-details';
+import { UserDetails } from 'src/app/models/user-details.model';
 
 export const userSignInFeatureKey = 'userSignIn';
 

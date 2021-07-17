@@ -4,7 +4,7 @@ import {
   userRegisterFailure,
   userRegisterSuccess,
 } from 'src/app/actions/user/register.actions';
-import { UserDetails } from 'src/app/models/user-details';
+import { UserDetails } from 'src/app/models/user-details.model';
 
 export const userRegisterFeatureKey = 'userRegister';
 
