@@ -21,4 +21,8 @@ export class OrderService {
   public deleteOrder(orderId: string) {
     return this.http.delete(`${this.apiUrl}/orders/${orderId}`);
   }
+
+  public deliverOrder(orderId: string) {
+    return this.http.put(`${this.apiUrl}/orders/${orderId}/deliver`, {});
+  }
 }
