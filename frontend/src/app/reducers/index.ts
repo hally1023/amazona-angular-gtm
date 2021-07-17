@@ -13,6 +13,9 @@ import * as fromUserSignIn from './user/user-sign-in.reducer';
 import * as fromUserRegister from './user/user-register.reducer';
 import * as fromUserUpdateProfile from './user/user-update-profile.reducer';
 import * as fromUserDetails from './user/user-details.reducer';
+import * as fromProductCreate from './product/product-create.reducer';
+import * as fromProductUpdate from './product/product-update.reducer';
+import * as fromProductDelete from './product/product-delete.reducer';
 
 export interface State {
   [fromCart.cartFeatureKey]: fromCart.State;
@@ -22,6 +25,9 @@ export interface State {
   [fromUserRegister.userRegisterFeatureKey]: fromUserRegister.State;
   [fromUserUpdateProfile.userUpdateProfileFeatureKey]: fromUserUpdateProfile.State;
   [fromUserDetails.userDetailsFeatureKey]: fromUserDetails.State;
+  [fromProductCreate.productCreateFeatureKey]: fromProductCreate.State;
+  [fromProductUpdate.productUpdateFeatureKey]: fromProductUpdate.State;
+  [fromProductDelete.productDeleteFeatureKey]: fromProductDelete.State;
 }
 
 export const reducers: ActionReducerMap<State> = {
@@ -33,6 +39,9 @@ export const reducers: ActionReducerMap<State> = {
   [fromUserUpdateProfile.userUpdateProfileFeatureKey]:
     fromUserUpdateProfile.reducer,
   [fromUserDetails.userDetailsFeatureKey]: fromUserDetails.reducer,
+  [fromProductCreate.productCreateFeatureKey]: fromProductCreate.reducer,
+  [fromProductUpdate.productUpdateFeatureKey]: fromProductUpdate.reducer,
+  [fromProductDelete.productDeleteFeatureKey]: fromProductDelete.reducer,
 };
 
 export const metaReducers: MetaReducer<State>[] = !environment.production

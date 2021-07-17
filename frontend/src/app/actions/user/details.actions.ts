@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 
-import { UserDetails } from 'src/app/models/user-details';
+import { UserDetails } from 'src/app/models/user-details.model';
 
 export const userDetails = createAction(
   '[Details] User Details',
