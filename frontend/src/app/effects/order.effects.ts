@@ -17,6 +17,11 @@ import {
   orderDeliverFailure,
   orderDeliverSuccess,
 } from '../actions/order/deliver.actions';
+import {
+  orderDetails,
+  orderDetailsFailure,
+  orderDetailsSuccess,
+} from '../actions/order/details.actions';
 import { OrderService } from '../services/order.service';
 
 @Injectable()
@@ -52,6 +57,18 @@ export class OrderEffects {
         this.orderService.deliverOrder(action.orderId).pipe(
           map(() => orderDeliverSuccess()),
           catchError((error) => of(orderDeliverFailure({ error })))
+        )
+      )
+    )
+  );
+
+  detailsOrder$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(orderDetails),
+      exhaustMap((action) =>
+        this.orderService.detailsOrder(action.orderId).pipe(
+          map((order) => orderDetailsSuccess({ order })),
+          catchError((error) => of(orderDetailsFailure({ error })))
         )
       )
     )
