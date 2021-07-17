@@ -16,6 +16,14 @@ import * as fromUserDetails from './user/user-details.reducer';
 import * as fromProductCreate from './product/product-create.reducer';
 import * as fromProductUpdate from './product/product-update.reducer';
 import * as fromProductDelete from './product/product-delete.reducer';
+import * as fromOrderCreate from './order/order-create.reducer';
+import * as fromOrderDetails from './order/order-details.reducer';
+import * as fromOrderPay from './order/order-pay.reducer';
+import * as fromOrderMineList from './order/order-mine-list.reducer';
+import * as fromOrderList from './order/order-list.reducer';
+import * as fromOrderDelete from './order/order-delete.reducer';
+import * as fromOrderDeliver from './order/order-deliver.reducer';
+import * as fromOrderRefund from './order/order-refund.reducer';
 
 export interface State {
   [fromCart.cartFeatureKey]: fromCart.State;
@@ -28,6 +36,14 @@ export interface State {
   [fromProductCreate.productCreateFeatureKey]: fromProductCreate.State;
   [fromProductUpdate.productUpdateFeatureKey]: fromProductUpdate.State;
   [fromProductDelete.productDeleteFeatureKey]: fromProductDelete.State;
+  [fromOrderCreate.orderCreateFeatureKey]: fromOrderCreate.State;
+  [fromOrderDetails.orderDetailsFeatureKey]: fromOrderDetails.State;
+  [fromOrderPay.orderPayFeatureKey]: fromOrderPay.State;
+  [fromOrderMineList.orderMineListFeatureKey]: fromOrderMineList.State;
+  [fromOrderList.orderListFeatureKey]: fromOrderList.State;
+  [fromOrderDelete.orderDeleteFeatureKey]: fromOrderDelete.State;
+  [fromOrderDeliver.orderDeliverFeatureKey]: fromOrderDeliver.State;
+  [fromOrderRefund.orderRefundFeatureKey]: fromOrderRefund.State;
 }
 
 export const reducers: ActionReducerMap<State> = {
@@ -42,6 +58,14 @@ export const reducers: ActionReducerMap<State> = {
   [fromProductCreate.productCreateFeatureKey]: fromProductCreate.reducer,
   [fromProductUpdate.productUpdateFeatureKey]: fromProductUpdate.reducer,
   [fromProductDelete.productDeleteFeatureKey]: fromProductDelete.reducer,
+  [fromOrderCreate.orderCreateFeatureKey]: fromOrderCreate.reducer,
+  [fromOrderDetails.orderDetailsFeatureKey]: fromOrderDetails.reducer,
+  [fromOrderPay.orderPayFeatureKey]: fromOrderPay.reducer,
+  [fromOrderMineList.orderMineListFeatureKey]: fromOrderMineList.reducer,
+  [fromOrderList.orderListFeatureKey]: fromOrderList.reducer,
+  [fromOrderDelete.orderDeleteFeatureKey]: fromOrderDelete.reducer,
+  [fromOrderDeliver.orderDeliverFeatureKey]: fromOrderDeliver.reducer,
+  [fromOrderRefund.orderRefundFeatureKey]: fromOrderRefund.reducer,
 };
 
 export const metaReducers: MetaReducer<State>[] = !environment.production
