@@ -1,18 +1,21 @@
 <div>
-  <form class="form">
+  <form #registerForm="ngForm" (ngSubmit)="onSubmit()" class="form">
     <div>
       <h1>Create Account</h1>
     </div>
-<!--    if loading-->
-    <app-loading-box *ngIf="false"></app-loading-box>
+    <app-loading-box *ngIf="loading"></app-loading-box>
 
-<!--    if error-->
-   <app-message-box *ngIf="false" variant="danger">{{"Error here"}}</app-message-box>
+    <app-message-box *ngIf="error" variant="danger">{{
+      error
+    }}</app-message-box>
+
     <div>
       <label for="name">Name</label>
       <input
+        [(ngModel)]="name"
         type="text"
         id="name"
+        name="name"
         placeholder="Enter name"
         required
       />
@@ -20,15 +23,19 @@
     <div>
       <label for="email">Email address</label>
       <input
+        [(ngModel)]="email"
+        name="email"
         type="email"
         id="email"
         placeholder="Enter email"
         required
-       />
+      />
     </div>
     <div>
       <label for="password">Password</label>
       <input
+        [(ngModel)]="password"
+        name="password"
         type="password"
         id="password"
         placeholder="Enter password"
@@ -38,15 +45,17 @@
     <div>
       <label for="confirmPassword">Confirm Password</label>
       <input
+        [(ngModel)]="confirmPassword"
+        name="confirmPassword"
         type="password"
         id="confirmPassword"
         placeholder="Enter confirm password"
         required
-       />
+      />
     </div>
     <div>
       <label></label>
-      <button class="primary" type="submit">
+      <button [disabled]="!registerForm.valid" class="primary" type="submit">
         Register
       </button>
     </div>
@@ -54,7 +63,7 @@
       <label></label>
       <div>
         Already have an account?
-        <a routerLink="/signin" >Sign-In</a>
+        <a routerLink="/signin">Sign-In</a>
       </div>
     </div>
   </form>

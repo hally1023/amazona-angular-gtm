@@ -42,7 +42,7 @@ export class UserEffects {
 
             return userSigninSuccess({ data: userInfo });
           }),
-          tap(() => this.location.back()),
+          tap(() => this.router.navigate(['/'])),
           catchError((error) =>
             of(userSigninFailure({ error: error.error.message }))
           )
@@ -56,8 +56,12 @@ export class UserEffects {
       ofType(userRegister),
       exhaustMap(({ email, password, name }) =>
         this.userService.register({ email, password, name }).pipe(
-          map((authDetails) => userRegisterSuccess({ data: authDetails })),
-          tap(() => this.location.back()),
+          map((userInfo) => {
+            this.localStorageService.setUserInfo(userInfo);
+
+            return userRegisterSuccess({ data: userInfo });
+          }),
+          tap(() => this.router.navigate(['/'])),
           catchError((error) =>
             of(userRegisterFailure({ error: error.error.message }))
           )
