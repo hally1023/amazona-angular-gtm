@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { userSignout } from './actions/user/signout.actions';
 import { CartItem } from './models/cart-item.model';
 import { UserDetails } from './models/user-details.model';
 import { State } from './reducers';
@@ -12,7 +13,7 @@ import { State } from './reducers';
 export class AppComponent {
   title = 'frontend';
 
-  userInfo: UserDetails | undefined;
+  userInfo: UserDetails | undefined | null;
   cartItems: CartItem[] = [];
 
   cart$ = this.store
@@ -21,11 +22,15 @@ export class AppComponent {
       this.cartItems = cart.cartItems;
     });
 
-  userSignIn$ = this.store
-    .select((state) => state.userSignIn)
-    .subscribe((userSignIn) => {
-      this.userInfo = userSignIn.userInfo;
+  userAuth$ = this.store
+    .select((state) => state.userAuth)
+    .subscribe((userAuth) => {
+      this.userInfo = userAuth.userInfo;
     });
+
+  userSignout() {
+    this.store.dispatch(userSignout());
+  }
 
   constructor(private store: Store<State>) {}
 }

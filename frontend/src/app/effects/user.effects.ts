@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { UserService } from '../services/user.service';
-import { catchError, exhaustMap, map, tap } from 'rxjs/operators';
-import { of } from 'rxjs';
+import { catchError, exhaustMap, map, mergeMap, tap } from 'rxjs/operators';
+import { of, pipe } from 'rxjs';
 import {
   userSignin,
   userSigninFailure,
@@ -24,6 +24,11 @@ import {
   userUpdateProfile,
   userUpdateProfileSuccess,
 } from '../actions/user/update-profile.actions';
+import {
+  userSignout,
+  userSignoutSuccess,
+} from '../actions/user/signout.actions';
+import { LocalStorageService } from '../services/local-storage.service';
 
 @Injectable()
 export class UserEffects {
@@ -32,7 +37,11 @@ export class UserEffects {
       ofType(userSignin),
       exhaustMap(({ email, password }) =>
         this.userService.signIn({ email, password }).pipe(
-          map((authDetails) => userSigninSuccess({ data: authDetails })),
+          map((userInfo) => {
+            this.localStorageService.setUserInfo(userInfo);
+
+            return userSigninSuccess({ data: userInfo });
+          }),
           tap(() => this.location.back()),
           catchError((error) =>
             of(userSigninFailure({ error: error.error.message }))
@@ -85,10 +94,24 @@ export class UserEffects {
     )
   );
 
+  signout$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(userSignout),
+      map(() => {
+        this.localStorageService.removeCartItems();
+        this.localStorageService.removeUserInfo();
+        this.localStorageService.removeShippingAddress();
+
+        return userSignoutSuccess();
+      })
+    )
+  );
+
   constructor(
     private actions$: Actions,
     private userService: UserService,
     private router: Router,
-    private location: Location
+    private location: Location,
+    private localStorageService: LocalStorageService
   ) {}
 }

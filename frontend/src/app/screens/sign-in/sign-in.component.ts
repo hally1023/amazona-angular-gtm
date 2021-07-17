@@ -15,11 +15,11 @@ export class SignInComponent implements OnInit {
   loading: boolean | undefined;
   error: any;
 
-  userSignIn$ = this.store
-    .select((state) => state.userSignIn)
-    .subscribe((userSignin) => {
-      this.loading = userSignin.loading;
-      this.error = userSignin.error;
+  userAuth$ = this.store
+    .select((state) => state.userAuth)
+    .subscribe((userAuth) => {
+      this.loading = userAuth.loading;
+      this.error = userAuth.error;
     });
 
   onSubmit() {
