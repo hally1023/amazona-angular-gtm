@@ -2,6 +2,7 @@ import { Action, createReducer, on } from '@ngrx/store';
 import {
   orderCreate,
   orderCreateFailure,
+  orderCreateReset,
   orderCreateSuccess,
 } from 'src/app/actions/order/create.actions';
 import { Order } from 'src/app/models/order.model';
@@ -25,5 +26,6 @@ export const reducer = createReducer(
     success: true,
     order: data,
   })),
-  on(orderCreateFailure, (_, { error }) => ({ loading: false, error }))
+  on(orderCreateFailure, (_, { error }) => ({ loading: false, error })),
+  on(orderCreateReset, (_) => ({}))
 );

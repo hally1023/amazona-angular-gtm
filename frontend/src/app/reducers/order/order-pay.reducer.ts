@@ -2,6 +2,7 @@ import { Action, createReducer, on } from '@ngrx/store';
 import {
   orderPay,
   orderPayFailure,
+  orderPayReset,
   orderPaySuccess,
 } from 'src/app/actions/order/pay.actions';
 
@@ -22,5 +23,6 @@ export const reducer = createReducer(
     loading: false,
     success: true,
   })),
-  on(orderPayFailure, (_, { error }) => ({ loading: false, error }))
+  on(orderPayFailure, (_, { error }) => ({ loading: false, error })),
+  on(orderPayReset, (_) => ({}))
 );

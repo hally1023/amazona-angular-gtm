@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { orderCreate } from 'src/app/actions/order/create.actions';
+import {
+  orderCreate,
+  orderCreateReset,
+} from 'src/app/actions/order/create.actions';
 import { CartItem } from 'src/app/models/cart-item.model';
 import { PaymentMethod } from 'src/app/models/payment-method.model';
 import { ShippingAddress } from 'src/app/models/shipping-address.model';
@@ -89,6 +92,7 @@ export class PlaceOrderComponent implements OnInit {
 
         if (orderCreate.success) {
           this.router.navigate([`/show-order/${orderCreate.order?._id}`]);
+          this.store.dispatch(orderCreateReset());
         }
       });
   }

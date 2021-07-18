@@ -2,6 +2,7 @@ import { Action, createReducer, on } from '@ngrx/store';
 import {
   orderDeliver,
   orderDeliverFailure,
+  orderDeliverReset,
   orderDeliverSuccess,
 } from 'src/app/actions/order/deliver.actions';
 
@@ -22,5 +23,6 @@ export const reducer = createReducer(
     loading: false,
     success: true,
   })),
-  on(orderDeliverFailure, (_, { error }) => ({ loading: false, error }))
+  on(orderDeliverFailure, (_, { error }) => ({ loading: false, error })),
+  on(orderDeliverReset, (_) => ({}))
 );

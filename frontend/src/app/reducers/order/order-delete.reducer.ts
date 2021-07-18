@@ -22,5 +22,6 @@ export const reducer = createReducer(
     loading: false,
     success: true,
   })),
-  on(orderDeleteFailure, (_, { error }) => ({ loading: false, error }))
+  on(orderDeleteFailure, (_, { error }) => ({ loading: false, error })),
+  on(orderDelete, (_) => ({}))
 );
