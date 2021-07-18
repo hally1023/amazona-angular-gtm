@@ -2,8 +2,8 @@
 
 <app-message-box *ngIf="false" variant="danger">{{ "error" }}</app-message-box>
 
-<div *ngIf="order">
-  <h1>Order {{ order._id }}</h1>
+<div [class.hidden]="!order">
+  <h1>Order {{ order?._id }}</h1>
   <div class="row top">
     <div class="col-2">
       <ul>
@@ -11,18 +11,19 @@
           <div class="card card-body">
             <h2>Shipping</h2>
             <p>
-              <strong>Name:</strong> {{ order.shippingAddress.fullName }} <br />
-              <strong>Address: </strong> {{ order.shippingAddress.address }},
-              {{ order.shippingAddress.city }},
-              {{ order.shippingAddress.postalCode }},
-              {{ order.shippingAddress.country }}
+              <strong>Name:</strong> {{ order?.shippingAddress?.fullName }}
+              <br />
+              <strong>Address: </strong> {{ order?.shippingAddress?.address }},
+              {{ order?.shippingAddress?.city }},
+              {{ order?.shippingAddress?.postalCode }},
+              {{ order?.shippingAddress?.country }}
             </p>
 
-            <app-message-box *ngIf="order.isDelivered" variant="success">
-              Delivered at {{ order.deliveredAt }}
+            <app-message-box *ngIf="order?.isDelivered" variant="success">
+              Delivered at {{ order?.deliveredAt }}
             </app-message-box>
 
-            <app-message-box *ngIf="!order.isDelivered" variant="danger"
+            <app-message-box *ngIf="!order?.isDelivered" variant="danger"
               >Not Delivered</app-message-box
             >
           </div>
@@ -30,11 +31,11 @@
         <li>
           <div class="card card-body">
             <h2>Payment</h2>
-            <p><strong>Method:</strong> {{ order.paymentMethod }}</p>
-            <app-message-box *ngIf="order.isPaid" variant="success">
-              Paid at {{ order.paidAt }}
+            <p><strong>Method:</strong> {{ order?.paymentMethod }}</p>
+            <app-message-box *ngIf="order?.isPaid" variant="success">
+              Paid at {{ order?.paidAt }}
             </app-message-box>
-            <app-message-box *ngIf="!order.isPaid" variant="danger"
+            <app-message-box *ngIf="!order?.isPaid" variant="danger"
               >Not Paid</app-message-box
             >
           </div>
@@ -43,7 +44,7 @@
           <div class="card card-body">
             <h2>Order Items</h2>
             <ul>
-              <li *ngFor="let item of order.orderItems">
+              <li *ngFor="let item of order?.orderItems">
                 <div class="row">
                   <div>
                     <img
@@ -78,19 +79,19 @@
           <li>
             <div class="row">
               <div>Items</div>
-              <div>{{ order.itemsPrice | currency }}</div>
+              <div>{{ order?.itemsPrice | currency }}</div>
             </div>
           </li>
           <li>
             <div class="row">
               <div>Shipping</div>
-              <div>{{ order.shippingPrice | currency }}</div>
+              <div>{{ order?.shippingPrice | currency }}</div>
             </div>
           </li>
           <li>
             <div class="row">
               <div>Tax</div>
-              <div>{{ order.taxPrice | currency }}</div>
+              <div>{{ order?.taxPrice | currency }}</div>
             </div>
           </li>
           <li>
@@ -99,53 +100,42 @@
                 <strong> Order Total</strong>
               </div>
               <div>
-                <strong>{{ order.totalPrice | currency }}</strong>
+                <strong>{{ order?.totalPrice | currency }}</strong>
               </div>
             </div>
           </li>
 
-          <!-- {!order.isPaid && (
-                <li>
-                  {!sdkReady ? (
-                    <LoadingBox></LoadingBox>
-                  ) : (
-                    <>
-                      {errorPay && (
-                        <MessageBox variant="danger">{errorPay}</MessageBox>
-                      )}
-                      {loadingPay && <LoadingBox></LoadingBox>}
+          <li [class.hidden]="order?.isPaid">
+            <app-message-box *ngIf="errorPay" variant="danger">{{
+              errorPay
+            }}</app-message-box>
 
-                      <PayPalButton
-                        amount={order.totalPrice}
-                        onSuccess={successPaymentHandler}
-                      ></PayPalButton>
-                    </>
-                  )}
-                </li>
-              )} -->
+            <app-loading-box *ngIf="loadingPay"></app-loading-box>
 
-          <li *ngIf="userInfo?.isAdmin && order.isPaid && !order.isDelivered">
-            <!-- {loadingDeliver &&  -->
-            <app-loading-box></app-loading-box>
-            <!-- } {errorDeliver && ( -->
-            <app-message-box *ngIf="false" variant="danger">{{
-              "errorDeliver"
+            <div #paypalRef></div>
+          </li>
+
+          <li *ngIf="userInfo?.isAdmin && order?.isPaid && !order?.isDelivered">
+            <app-loading-box *ngIf="loadingDeliver"></app-loading-box>
+
+            <app-message-box *ngIf="errorDeliver" variant="danger">{{
+              errorDeliver
             }}</app-message-box>
 
             <button
               type="button"
               class="primary block"
-              onClick="{deliverHandler}"
+              (click)="deliverHandler()"
             >
               Deliver Order
             </button>
           </li>
 
           <button
-            *ngIf="order.isPaid && !order.isRefunded"
+            *ngIf="order?.isPaid && !order?.isRefunded"
             type="button"
             class="primary block"
-            onClick="{refundHandler}"
+            (click)="refundHandler()"
           >
             Refund
           </button>

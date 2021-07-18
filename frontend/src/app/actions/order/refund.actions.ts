@@ -12,7 +12,4 @@ export const orderRefundFailure = createAction(
   props<{ error: any }>()
 );
 
-export const orderRefundReset = createAction(
-  '[Refund] Order Refund Reset',
-  props<{ error: any }>()
-);
+export const orderRefundReset = createAction('[Refund] Order Refund Reset');
