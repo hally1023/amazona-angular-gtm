@@ -1,1 +1,113 @@
-<p>place-order works!</p>
+<div>
+  <app-checkout-steps
+    [step1]="true"
+    [step2]="true"
+    [step3]="true"
+    [step4]="true"
+  ></app-checkout-steps>
+  <div class="row top">
+    <div class="col-2">
+      <ul>
+        <li>
+          <div *ngIf="shippingAddress" class="card card-body">
+            <h2>Shipping</h2>
+            <p>
+              <strong>Name:</strong> {{ shippingAddress.fullName }} <br />
+              <strong>Address: </strong> {{ shippingAddress.address }},
+              {{ shippingAddress.city }}, {{ shippingAddress.postalCode }} ,{{
+                shippingAddress.country
+              }}
+            </p>
+          </div>
+        </li>
+        <li>
+          <div *ngIf="paymentMethod" class="card card-body">
+            <h2>Payment</h2>
+            <p><strong>Method:</strong> {{ paymentMethod }}</p>
+          </div>
+        </li>
+        <li>
+          <div class="card card-body">
+            <h2>Order Items</h2>
+            <ul>
+              <li *ngFor="let item of cartItems">
+                <div class="row">
+                  <div>
+                    <img
+                      [src]="'assets/' + item.image"
+                      [alt]="item.name"
+                      class="small"
+                    />
+                  </div>
+                  <div class="min-30">
+                    <a [routerLink]="'/product/' + item.product">
+                      {{ item.name }}
+                    </a>
+                  </div>
+
+                  <div>
+                    {{ item.qty }} x {{ item.price | currency }} =
+                    {{ item.qty * item.price | currency }}
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="col-1">
+      <div class="card card-body">
+        <ul>
+          <li>
+            <h2>Order Summary</h2>
+          </li>
+          <li>
+            <div class="row">
+              <div>Items</div>
+              <div>{{ itemsPrice() | currency }}</div>
+            </div>
+          </li>
+          <li>
+            <div class="row">
+              <div>Shipping</div>
+              <div>{{ shippingPrice() | currency }}</div>
+            </div>
+          </li>
+          <li>
+            <div class="row">
+              <div>Tax</div>
+              <div>{{ taxPrice() | currency }}</div>
+            </div>
+          </li>
+          <li>
+            <div class="row">
+              <div>
+                <strong> Order Total</strong>
+              </div>
+              <div>
+                <strong>{{ totalPrice() | currency }}</strong>
+              </div>
+            </div>
+          </li>
+          <li>
+            <button
+              type="button"
+              (click)="placeOrderHandler()"
+              class="primary block"
+              [disabled]="cartItems.length === 0"
+            >
+              Place Order
+            </button>
+          </li>
+
+          <app-loading-box *ngIf="placeOrderLoading"></app-loading-box>
+
+          <app-message-box *ngIf="placeOrderError" variant="danger">{{
+            placeOrderError
+          }}</app-message-box>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
