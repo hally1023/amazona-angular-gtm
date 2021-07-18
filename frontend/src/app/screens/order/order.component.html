@@ -1,1 +1,156 @@
-<p>order works!</p>
+<app-loading-box *ngIf="false"></app-loading-box>
+
+<app-message-box *ngIf="false" variant="danger">{{ "error" }}</app-message-box>
+
+<div *ngIf="order">
+  <h1>Order {{ order._id }}</h1>
+  <div class="row top">
+    <div class="col-2">
+      <ul>
+        <li>
+          <div class="card card-body">
+            <h2>Shipping</h2>
+            <p>
+              <strong>Name:</strong> {{ order.shippingAddress.fullName }} <br />
+              <strong>Address: </strong> {{ order.shippingAddress.address }},
+              {{ order.shippingAddress.city }},
+              {{ order.shippingAddress.postalCode }},
+              {{ order.shippingAddress.country }}
+            </p>
+
+            <app-message-box *ngIf="order.isDelivered" variant="success">
+              Delivered at {{ order.deliveredAt }}
+            </app-message-box>
+
+            <app-message-box *ngIf="!order.isDelivered" variant="danger"
+              >Not Delivered</app-message-box
+            >
+          </div>
+        </li>
+        <li>
+          <div class="card card-body">
+            <h2>Payment</h2>
+            <p><strong>Method:</strong> {{ order.paymentMethod }}</p>
+            <app-message-box *ngIf="order.isPaid" variant="success">
+              Paid at {{ order.paidAt }}
+            </app-message-box>
+            <app-message-box *ngIf="!order.isPaid" variant="danger"
+              >Not Paid</app-message-box
+            >
+          </div>
+        </li>
+        <li>
+          <div class="card card-body">
+            <h2>Order Items</h2>
+            <ul>
+              <li *ngFor="let item of order.orderItems">
+                <div class="row">
+                  <div>
+                    <img
+                      [src]="'assets/' + item.image"
+                      [alt]="item.name"
+                      class="small"
+                    />
+                  </div>
+                  <div class="min-30">
+                    <a [routerLink]="'/product/' + item.product">
+                      {{ item.name }}
+                    </a>
+                  </div>
+
+                  <div>
+                    {{ item.qty }} x {{ item.price | currency }} =
+                    {{ item.qty * item.price | currency }}
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="col-1">
+      <div class="card card-body">
+        <ul>
+          <li>
+            <h2>Order Summary</h2>
+          </li>
+          <li>
+            <div class="row">
+              <div>Items</div>
+              <div>{{ order.itemsPrice | currency }}</div>
+            </div>
+          </li>
+          <li>
+            <div class="row">
+              <div>Shipping</div>
+              <div>{{ order.shippingPrice | currency }}</div>
+            </div>
+          </li>
+          <li>
+            <div class="row">
+              <div>Tax</div>
+              <div>{{ order.taxPrice | currency }}</div>
+            </div>
+          </li>
+          <li>
+            <div class="row">
+              <div>
+                <strong> Order Total</strong>
+              </div>
+              <div>
+                <strong>{{ order.totalPrice | currency }}</strong>
+              </div>
+            </div>
+          </li>
+
+          <!-- {!order.isPaid && (
+                <li>
+                  {!sdkReady ? (
+                    <LoadingBox></LoadingBox>
+                  ) : (
+                    <>
+                      {errorPay && (
+                        <MessageBox variant="danger">{errorPay}</MessageBox>
+                      )}
+                      {loadingPay && <LoadingBox></LoadingBox>}
+
+                      <PayPalButton
+                        amount={order.totalPrice}
+                        onSuccess={successPaymentHandler}
+                      ></PayPalButton>
+                    </>
+                  )}
+                </li>
+              )} -->
+
+          <li *ngIf="userInfo?.isAdmin && order.isPaid && !order.isDelivered">
+            <!-- {loadingDeliver &&  -->
+            <app-loading-box></app-loading-box>
+            <!-- } {errorDeliver && ( -->
+            <app-message-box *ngIf="false" variant="danger">{{
+              "errorDeliver"
+            }}</app-message-box>
+
+            <button
+              type="button"
+              class="primary block"
+              onClick="{deliverHandler}"
+            >
+              Deliver Order
+            </button>
+          </li>
+
+          <button
+            *ngIf="order.isPaid && !order.isRefunded"
+            type="button"
+            class="primary block"
+            onClick="{refundHandler}"
+          >
+            Refund
+          </button>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

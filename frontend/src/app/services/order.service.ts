@@ -28,7 +28,7 @@ export class OrderService {
   }
 
   public detailsOrder(orderId: string) {
-    return this.http.get<Order>(`${this.apiUrl}/orders/${orderId}/deliver`);
+    return this.http.get<Order>(`${this.apiUrl}/orders/${orderId}`);
   }
 
   public listOrders() {
