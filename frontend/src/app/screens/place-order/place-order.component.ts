@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { cartEmpty } from 'src/app/actions/cart/cart.actions';
 import {
   orderCreate,
   orderCreateReset,
@@ -93,6 +94,7 @@ export class PlaceOrderComponent implements OnInit {
         if (orderCreate.success) {
           this.router.navigate([`/show-order/${orderCreate.order?._id}`]);
           this.store.dispatch(orderCreateReset());
+          this.store.dispatch(cartEmpty());
         }
       });
   }

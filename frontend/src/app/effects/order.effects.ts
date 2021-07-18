@@ -42,6 +42,7 @@ import {
   orderRefundFailure,
   orderRefundSuccess,
 } from '../actions/order/refund.actions';
+import { LocalStorageService } from '../services/local-storage.service';
 import { OrderService } from '../services/order.service';
 
 @Injectable()
@@ -51,7 +52,10 @@ export class OrderEffects {
       ofType(orderCreate),
       exhaustMap((action) =>
         this.orderService.createOrder(action.order).pipe(
-          map(({ order }) => orderCreateSuccess({ data: order })),
+          map(({ order }) => {
+            this.localStorageService.removeCartItems();
+            return orderCreateSuccess({ data: order });
+          }),
           catchError((error) => of(orderCreateFailure({ error })))
         )
       )
@@ -142,5 +146,9 @@ export class OrderEffects {
     )
   );
 
-  constructor(private actions$: Actions, private orderService: OrderService) {}
+  constructor(
+    private actions$: Actions,
+    private orderService: OrderService,
+    private localStorageService: LocalStorageService
+  ) {}
 }
