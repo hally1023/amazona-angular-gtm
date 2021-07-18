@@ -40,7 +40,6 @@ export class UserEffects {
 
             return userSigninSuccess({ data: userInfo });
           }),
-          tap(() => this.router.navigate(['/'])),
           catchError((error) =>
             of(userSigninFailure({ error: error.error.message }))
           )
@@ -59,7 +58,6 @@ export class UserEffects {
 
             return userRegisterSuccess({ data: userInfo });
           }),
-          tap(() => this.router.navigate(['/'])),
           catchError((error) =>
             of(userRegisterFailure({ error: error.error.message }))
           )
@@ -115,8 +113,6 @@ export class UserEffects {
   constructor(
     private actions$: Actions,
     private userService: UserService,
-    private router: Router,
-    private location: Location,
     private localStorageService: LocalStorageService
   ) {}
 }

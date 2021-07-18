@@ -17,12 +17,13 @@ const localStorageService = new LocalStorageService();
 
 export interface State {
   cartItems: CartItem[];
-  shippingAddress?: ShippingAddress;
+  shippingAddress: ShippingAddress | null;
   paymentMethod?: PaymentMethod;
 }
 
 export const initialState: State = {
   cartItems: localStorageService.getCartItems(),
+  shippingAddress: localStorageService.getShippingAddress(),
 };
 
 export const reducer = createReducer(

@@ -8,6 +8,7 @@ import {
   cartAddItemFailure,
   cartAddItemSuccess,
   cartRemoveItem,
+  cartSaveShippingAddress,
 } from '../actions/cart/cart.actions';
 import { State } from '../reducers';
 import { LocalStorageService } from '../services/local-storage.service';
@@ -64,6 +65,17 @@ export class CartEffects {
           this.localStorageService.setCartItems(
             cartItems.filter((x) => x.product !== productId)
           );
+        })
+      ),
+    { dispatch: false }
+  );
+
+  saveShippingAddress$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(cartSaveShippingAddress),
+        tap(({ shippingAddress }) => {
+          this.localStorageService.setShippingAddress(shippingAddress);
         })
       ),
     { dispatch: false }
