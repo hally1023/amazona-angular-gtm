@@ -42,7 +42,9 @@
       <label></label>
       <div>
         New customer?
-        <a routerLink="/register"> Create your account </a>
+        <a routerLink="/register" [queryParams]="{redirect}">
+          Create your account
+        </a>
       </div>
     </div>
   </form>

@@ -17,21 +17,33 @@ export class ProductDetailsComponent implements OnInit {
   product: Product | undefined;
   countArr: number[] | undefined;
 
-  productDetails = this.store
-    .select((state) => state.productDetails)
-    .subscribe((productDetails) => {
-      this.loading = productDetails.loading;
-      this.error = productDetails.error;
-      this.product = productDetails.product;
-      this.countArr = [...Array(productDetails.product?.countInStock).keys()];
-    });
+  constructor(
+    private store: Store<State>,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
-  constructor(private store: Store<State>, private route: ActivatedRoute) {}
+  addToCartHandler() {
+    this.router.navigate([`/cart/${this.product?._id}`], {
+      queryParams: {
+        qty: this.qty,
+      },
+    });
+  }
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       const productId = params.id;
       if (productId) this.store.dispatch(detailsProducts({ productId }));
     });
+
+    this.store
+      .select((state) => state.productDetails)
+      .subscribe((productDetails) => {
+        this.loading = productDetails.loading;
+        this.error = productDetails.error;
+        this.product = productDetails.product;
+        this.countArr = [...Array(productDetails.product?.countInStock).keys()];
+      });
   }
 }

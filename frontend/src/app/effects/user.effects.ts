@@ -25,10 +25,7 @@ import {
   userUpdateProfileFailure,
   userUpdateProfileSuccess,
 } from '../actions/user/update-profile.actions';
-import {
-  userSignout,
-  userSignoutSuccess,
-} from '../actions/user/signout.actions';
+import { userSignout } from '../actions/user/signout.actions';
 import { LocalStorageService } from '../services/local-storage.service';
 
 @Injectable()
@@ -102,17 +99,17 @@ export class UserEffects {
     )
   );
 
-  signout$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(userSignout),
-      map(() => {
-        this.localStorageService.removeCartItems();
-        this.localStorageService.removeUserInfo();
-        this.localStorageService.removeShippingAddress();
-
-        return userSignoutSuccess();
-      })
-    )
+  signout$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(userSignout),
+        tap(() => {
+          this.localStorageService.removeCartItems();
+          this.localStorageService.removeUserInfo();
+          this.localStorageService.removeShippingAddress();
+        })
+      ),
+    { dispatch: false }
   );
 
   constructor(

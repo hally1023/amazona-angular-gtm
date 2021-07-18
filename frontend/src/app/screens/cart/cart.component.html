@@ -1,1 +1,62 @@
-<p>cart works!</p>
+<div class="row top">
+  <div class="col-2">
+    <h1>Shopping Cart</h1>
+    <app-message-box *ngIf="cartItems.length === 0">
+      Cart is empty. <a routerLink="/">Go Shopping</a>
+    </app-message-box>
+    <ul *ngIf="cartItems.length > 0">
+      <li *ngFor="let item of cartItems">
+        <div class="row">
+          <div>
+            <img
+              [src]="'assets/' + item.image"
+              [alt]="item.name"
+              class="small"
+            />
+          </div>
+          <div class="min-30">
+            <a [routerLink]="'/product/' + item.product">{{ item.name }}</a>
+          </div>
+          <div>
+            <select
+              (change)="
+                onQuantityChange(item.product, $any($event.target).value)
+              "
+            >
+              <ng-container *ngFor="let x of stockCount(item)">
+                <option [ngValue]="x + 1" [selected]="item.qty === x + 1">
+                  {{ x + 1 }}
+                </option>
+              </ng-container>
+            </select>
+          </div>
+          <div>${{ item.price }}</div>
+          <div>
+            <button type="button" (click)="removeFromCartHandler(item.product)">
+              Delete
+            </button>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="col-1">
+    <div class="card card-body">
+      <ul>
+        <li>
+          <h2>Subtotal ( {{ totalItems() }} items ) : ${{ totalPrice() }}</h2>
+        </li>
+        <li>
+          <button
+            type="button"
+            class="primary block"
+            [disabled]="cartItems.length === 0"
+            (click)="checkoutHanlder()"
+          >
+            Proceed to Checkout
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

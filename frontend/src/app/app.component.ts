@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { cartEmpty } from './actions/cart/cart.actions';
 import { userSignout } from './actions/user/signout.actions';
 import { CartItem } from './models/cart-item.model';
 import { UserDetails } from './models/user-details.model';
@@ -30,6 +31,7 @@ export class AppComponent {
 
   userSignout() {
     this.store.dispatch(userSignout());
+    this.store.dispatch(cartEmpty());
   }
 
   constructor(private store: Store<State>) {}

@@ -9,8 +9,11 @@ import {
 import { CartItem } from 'src/app/models/cart-item.model';
 import { PaymentMethod } from 'src/app/models/payment-method.model';
 import { ShippingAddress } from 'src/app/models/shipping-address.model';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
 
 export const cartFeatureKey = 'cart';
+
+const localStorageService = new LocalStorageService();
 
 export interface State {
   cartItems: CartItem[];
@@ -19,7 +22,7 @@ export interface State {
 }
 
 export const initialState: State = {
-  cartItems: [],
+  cartItems: localStorageService.getCartItems(),
 };
 
 export const reducer = createReducer(

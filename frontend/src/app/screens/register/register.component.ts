@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { userRegister } from 'src/app/actions/user/register.actions';
 import { State } from 'src/app/reducers';
@@ -13,6 +14,8 @@ export class RegisterComponent implements OnInit {
   email = '';
   password = '';
   confirmPassword = '';
+
+  redirect = '/';
 
   onSubmit() {
     if (this.password !== this.confirmPassword) {
@@ -32,14 +35,29 @@ export class RegisterComponent implements OnInit {
   loading: boolean | undefined;
   error: any;
 
-  $userAuth = this.store
-    .select((state) => state.userAuth)
-    .subscribe((userAuth) => {
-      this.loading = userAuth.loading;
-      this.error = userAuth.error;
-    });
+  constructor(
+    private store: Store<State>,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
-  constructor(private store: Store<State>) {}
+  ngOnInit(): void {
+    this.store
+      .select((state) => state.userAuth)
+      .subscribe((userAuth) => {
+        this.loading = userAuth.loading;
+        this.error = userAuth.error;
+        this.route.queryParams.subscribe((queryParams) => {
+          const redirect = queryParams.redirect
+            ? queryParams.redirect
+            : this.redirect;
 
-  ngOnInit(): void {}
+          this.redirect = redirect;
+
+          if (userAuth.userInfo) {
+            this.router.navigate([redirect]);
+          }
+        });
+      });
+  }
 }

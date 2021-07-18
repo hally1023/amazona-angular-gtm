@@ -9,10 +9,7 @@ import {
   userSigninFailure,
   userSigninSuccess,
 } from 'src/app/actions/user/signin.actions';
-import {
-  userSignout,
-  userSignoutSuccess,
-} from 'src/app/actions/user/signout.actions';
+import { userSignout } from 'src/app/actions/user/signout.actions';
 import { userUpdateProfileSuccess } from 'src/app/actions/user/update-profile.actions';
 import { UserDetails } from 'src/app/models/user-details.model';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
@@ -45,7 +42,6 @@ export const reducer = createReducer(
     userInfo: data,
   })),
   on(userRegisterFailure, (state, { error }) => ({ loading: false, error })),
-  on(userSignout, () => ({ loading: true })),
-  on(userSignoutSuccess, () => ({ loading: false })),
+  on(userSignout, () => ({})),
   on(userUpdateProfileSuccess, (state, { user }) => ({ userInfo: user }))
 );

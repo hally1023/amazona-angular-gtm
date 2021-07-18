@@ -33,4 +33,4 @@ export const cartSavePaymentMethod = createAction(
   props<{ paymentMethod: PaymentMethod }>()
 );
 
-export const cartEmpty = createAction('[Cart] Add Item');
+export const cartEmpty = createAction('[Cart] Cart Empty');
