@@ -22,6 +22,7 @@ import {
 } from '../actions/user/details.actions';
 import {
   userUpdateProfile,
+  userUpdateProfileFailure,
   userUpdateProfileSuccess,
 } from '../actions/user/update-profile.actions';
 import {
@@ -89,9 +90,12 @@ export class UserEffects {
       ofType(userUpdateProfile),
       exhaustMap(({ user }) =>
         this.userService.updateUserProfile(user).pipe(
-          map(() => userUpdateProfileSuccess()),
+          map((userInfo) => {
+            this.localStorageService.setUserInfo(userInfo);
+            return userUpdateProfileSuccess({ user: userInfo });
+          }),
           catchError((error) =>
-            of(userDetailsFailure({ error: error.error.message }))
+            of(userUpdateProfileFailure({ error: error.error.message }))
           )
         )
       )

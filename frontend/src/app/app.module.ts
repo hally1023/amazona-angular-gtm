@@ -28,12 +28,13 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { ProductEffects } from './effects/product.effects';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ProductDetailsComponent } from './screens/product-details/product-details.component';
 import { FormsModule } from '@angular/forms';
 import { UserEffects } from './effects/user.effects';
 import { OrderEffects } from './effects/order.effects';
 import { CartEffects } from './effects/cart.effects';
+import { JwtInterceptor } from './helpers/jwt.interceptor';
 
 @NgModule({
   declarations: [
@@ -65,10 +66,17 @@ import { CartEffects } from './effects/cart.effects';
     FontAwesomeModule,
     StoreModule.forRoot(reducers, { metaReducers }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
-    EffectsModule.forRoot([ProductEffects, UserEffects, OrderEffects, CartEffects]),
+    EffectsModule.forRoot([
+      ProductEffects,
+      UserEffects,
+      OrderEffects,
+      CartEffects,
+    ]),
     FormsModule,
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

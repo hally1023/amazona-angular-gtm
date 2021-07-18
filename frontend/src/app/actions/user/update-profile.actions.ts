@@ -3,11 +3,18 @@ import { UserDetails } from 'src/app/models/user-details.model';
 
 export const userUpdateProfile = createAction(
   '[UpdateProfile] User UpdateProfile',
-  props<{ user: Partial<UserDetails> }>()
+  props<{
+    user: Partial<{
+      name: string;
+      email: string;
+      password: string;
+    }>;
+  }>()
 );
 
 export const userUpdateProfileSuccess = createAction(
-  '[UpdateProfile] User UpdateProfile Success'
+  '[UpdateProfile] User UpdateProfile Success',
+  props<{ user: UserDetails }>()
 );
 
 export const userUpdateProfileFailure = createAction(

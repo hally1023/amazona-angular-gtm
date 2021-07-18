@@ -1,46 +1,61 @@
 <div>
-  <form #updateForm="ngForm" class="form" onSubmit="{submitHandler}">
+  <form #updateForm="ngForm" class="form" (ngSubmit)="onSubmit()">
     <div>
       <h1>User Profile</h1>
     </div>
 
-    <!-- if loading -->
-    <app-loading-box *ngIf="false"></app-loading-box>
-    <!-- if error -->
-    <app-message-box *ngIf="false" variant="danger">{{
-      "error"
+    <app-loading-box *ngIf="detailsLoading"></app-loading-box>
+
+    <app-message-box *ngIf="detailsError" variant="danger">{{
+      detailsError
     }}</app-message-box>
 
-    <ng-container>
-      <!-- if loadingUpdate -->
+    <ng-container *ngIf="!detailsError && !detailsLoading">
+      <app-loading-box *ngIf="updateLoading"></app-loading-box>
 
-      <app-loading-box *ngIf="false"></app-loading-box>
-
-      <!-- if errorUpdate -->
-      <app-message-box *ngIf="false" variant="danger">{{
-        "error"
+      <app-message-box *ngIf="updateError" variant="danger">{{
+        updateError
       }}</app-message-box>
 
-      <!-- if successUpdate -->
-      <app-message-box *ngIf="false" variant="danger">
+      <app-message-box *ngIf="updateSuccess" variant="success">
         Profile Updated Successfully</app-message-box
       >
 
       <div>
         <label for="name">Name</label>
-        <input id="name" type="text" placeholder="Enter name" />
+        <input
+          id="name"
+          name="name"
+          [(ngModel)]="name"
+          type="text"
+          placeholder="Enter name"
+        />
       </div>
       <div>
         <label for="email">Email</label>
-        <input id="email" type="email" placeholder="Enter email" />
+        <input
+          name="email"
+          [(ngModel)]="email"
+          id="email"
+          type="email"
+          placeholder="Enter email"
+        />
       </div>
       <div>
         <label for="password">Password</label>
-        <input id="password" type="password" placeholder="Enter password" />
+        <input
+          name="password"
+          [(ngModel)]="password"
+          id="password"
+          type="password"
+          placeholder="Enter password"
+        />
       </div>
       <div>
         <label for="confirmPassword">confirm Password</label>
         <input
+          name="confirmPassword"
+          [(ngModel)]="confirmPassword"
           id="confirmPassword"
           type="password"
           placeholder="Enter confirm password"
@@ -48,7 +63,9 @@
       </div>
       <div>
         <label></label>
-        <button class="primary" type="submit">Update</button>
+        <button [disabled]="!updateForm.valid" class="primary" type="submit">
+          Update
+        </button>
       </div>
     </ng-container>
   </form>
