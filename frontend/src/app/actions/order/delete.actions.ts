@@ -11,3 +11,5 @@ export const orderDeleteFailure = createAction(
   '[Delete] Order Delete Failure',
   props<{ error: any }>()
 );
+
+export const orderDeleteReset = createAction('[Delete] Order Delete Reset');

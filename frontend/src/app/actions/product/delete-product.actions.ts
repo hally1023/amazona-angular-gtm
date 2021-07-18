@@ -13,3 +13,8 @@ export const deleteProductFailure = createAction(
   '[DeleteProduct] Delete Product Failure',
   props<{ error: any }>()
 );
+
+export const deleteProductReset = createAction(
+  '[DeleteProduct] Delete Product Reset',
+  props<{ error: any }>()
+);

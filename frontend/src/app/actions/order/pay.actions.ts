@@ -19,3 +19,5 @@ export const orderPayFailure = createAction(
   '[Pay] Order Pay Failure',
   props<{ error: any }>()
 );
+
+export const orderPayReset = createAction('[Pay] Order Pay Reset');

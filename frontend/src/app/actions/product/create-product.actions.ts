@@ -27,3 +27,8 @@ export const createProductFailure = createAction(
   '[CreateProduct] Create Product Failure',
   props<{ error: any }>()
 );
+
+export const createProductReset = createAction(
+  '[CreateProduct] Create Product Reset',
+  props<{ error: any }>()
+);

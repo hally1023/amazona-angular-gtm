@@ -13,3 +13,8 @@ export const orderDeliverFailure = createAction(
   '[Deliver] Order Deliver Failure',
   props<{ error: any }>()
 );
+
+export const orderDeliverReset = createAction(
+  '[Deliver] Order Deliver Reset',
+  props<{ error: any }>()
+);

@@ -15,3 +15,8 @@ export const updateProductFailure = createAction(
   '[UpdateProduct] Update Product Failure',
   props<{ error: any }>()
 );
+
+export const updateProductReset = createAction(
+  '[UpdateProduct] Update Product Reset',
+  props<{ error: any }>()
+);
