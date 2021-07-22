@@ -1,1 +1,38 @@
-<p>order-history works!</p>
+<div>
+  <h1>Order History</h1>
+  <app-loading-box *ngIf="loading"></app-loading-box>
+  <app-message-box *ngIf="error" variant="danger">{{ error }}</app-message-box>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>DATE</th>
+        <th>TOTAL</th>
+        <th>PAID</th>
+        <th>DELIVERED</th>
+        <th>ACTIONS</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let order of orders">
+        <td>{{ order._id }}</td>
+        <td>{{ order.createdAt.substring(0, 10) }}</td>
+        <td>{{ order.totalPrice.toFixed(2) }}</td>
+        <td>{{ order.isPaid ? order.paidAt.substring(0, 10) : "No" }}</td>
+        <td>
+          {{ order.isDelivered ? order.deliveredAt?.substring(0, 10) : "No" }}
+        </td>
+        <td>
+          <button
+            type="button"
+            class="small"
+            (click)="detailsHandler(order._id)"
+          >
+            Details
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
