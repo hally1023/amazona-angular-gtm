@@ -1,1 +1,113 @@
-<p>product-edit works!</p>
+<div>
+  <form #productUpdateForm="ngForm" class="form" (ngSubmit)="submitHandler()">
+    <div>
+      <h1>Edit Product {{ productId }}</h1>
+    </div>
+
+    <app-loading-box *ngIf="loadingUpdate"></app-loading-box>
+    <app-message-box *ngIf="errorUpdate" variant="danger">{{
+      errorUpdate
+    }}</app-message-box>
+
+    <app-loading-box *ngIf="loading"></app-loading-box>
+    <app-message-box *ngIf="error" variant="danger">{{
+      error
+    }}</app-message-box>
+
+    <div>
+      <label htmlFor="name">Name</label>
+      <input
+        id="name"
+        type="text"
+        placeholder="Enter name"
+        [(ngModel)]="name"
+        name="name"
+      />
+    </div>
+    <div>
+      <label htmlFor="price">Price</label>
+      <input
+        id="price"
+        type="text"
+        placeholder="Enter price"
+        [(ngModel)]="price"
+        name="price"
+      />
+    </div>
+    <div>
+      <label htmlFor="image">Image</label>
+      <input
+        [(ngModel)]="image"
+        name="image"
+        id="image"
+        type="text"
+        placeholder="Enter image"
+      />
+    </div>
+    <div>
+      <label htmlFor="imageFile">Image File</label>
+      <input
+        type="file"
+        id="imageFile"
+        label="Choose Image"
+        (change)="handleImageUpload($any($event.target).files)"
+      />
+
+      <app-loading-box *ngIf="loadingUpload"></app-loading-box>
+      <app-message-box *ngIf="errorUpload" variant="danger">{{
+        errorUpload
+      }}</app-message-box>
+    </div>
+    <div>
+      <label htmlFor="category">Category</label>
+      <input
+        [(ngModel)]="category"
+        name="category"
+        id="category"
+        type="text"
+        placeholder="Enter category"
+      />
+    </div>
+    <div>
+      <label htmlFor="brand">Brand</label>
+      <input
+        [(ngModel)]="brand"
+        name="brand"
+        id="brand"
+        type="text"
+        placeholder="Enter brand"
+      />
+    </div>
+    <div>
+      <label htmlFor="countInStock">Count In Stock</label>
+      <input
+        [(ngModel)]="countInStock"
+        name="countInStock"
+        id="countInStock"
+        type="text"
+        placeholder="Enter countInStock"
+      />
+    </div>
+    <div>
+      <label htmlFor="description">Description</label>
+      <textarea
+        [(ngModel)]="description"
+        name="description"
+        id="description"
+        rows="3"
+        type="text"
+        placeholder="Enter description"
+      ></textarea>
+    </div>
+    <div>
+      <label></label>
+      <button
+        [disabled]="productUpdateForm.invalid"
+        class="primary"
+        type="submit"
+      >
+        Update
+      </button>
+    </div>
+  </form>
+</div>

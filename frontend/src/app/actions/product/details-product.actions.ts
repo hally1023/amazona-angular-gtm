@@ -1,17 +1,17 @@
 import { createAction, props } from '@ngrx/store';
 import { Product } from 'src/app/models/product.model';
 
-export const detailsProducts = createAction(
-  '[DetailsProduct] Details Products',
+export const detailsProduct = createAction(
+  '[DetailsProduct] Details Product',
   props<{ productId: string }>()
 );
 
-export const detailsProductsSuccess = createAction(
-  '[DetailsProduct] Details Products Success',
+export const detailsProductSuccess = createAction(
+  '[DetailsProduct] Details Product Success',
   props<{ data: Product }>()
 );
 
-export const detailsProductsFailure = createAction(
-  '[DetailsProduct] Details Products Failure',
+export const detailsProductFailure = createAction(
+  '[DetailsProduct] Details Product Failure',
   props<{ error: any }>()
 );

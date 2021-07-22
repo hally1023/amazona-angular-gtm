@@ -1,8 +1,8 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import {
-  detailsProducts,
-  detailsProductsFailure,
-  detailsProductsSuccess,
+  detailsProduct,
+  detailsProductFailure,
+  detailsProductSuccess,
 } from 'src/app/actions/product/details-product.actions';
 import { Product } from 'src/app/models/product.model';
 
@@ -20,10 +20,10 @@ export const initialState: State = {
 
 export const reducer = createReducer(
   initialState,
-  on(detailsProducts, (state, {}) => ({ loading: true })),
-  on(detailsProductsSuccess, (state, { data }) => ({
+  on(detailsProduct, (state, {}) => ({ loading: true })),
+  on(detailsProductSuccess, (state, { data }) => ({
     loading: false,
     product: data,
   })),
-  on(detailsProductsFailure, (state, { error }) => ({ loading: false, error }))
+  on(detailsProductFailure, (state, { error }) => ({ loading: false, error }))
 );

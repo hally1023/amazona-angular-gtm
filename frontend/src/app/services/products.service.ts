@@ -24,7 +24,7 @@ export class ProductsService {
   }
 
   public updateProduct(product: Partial<Product>) {
-    return this.http.post<Product>(
+    return this.http.put<Product>(
       `${this.apiUrl}/products/${product._id}`,
       product
     );

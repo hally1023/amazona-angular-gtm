@@ -1,10 +1,6 @@
 <div class="card">
   <a [routerLink]="'/product/' + product?._id">
-    <img
-      class="medium"
-      [src]="'assets' + product?.image"
-      [alt]="product?.name"
-    />
+    <img class="medium" [src]="product?.image" [alt]="product?.name" />
   </a>
   <div class="card-body">
     <a [routerLink]="'/product/' + product?._id">

@@ -33,11 +33,7 @@
               <li *ngFor="let item of cartItems">
                 <div class="row">
                   <div>
-                    <img
-                      [src]="'assets/' + item.image"
-                      [alt]="item.name"
-                      class="small"
-                    />
+                    <img [src]="item.image" [alt]="item.name" class="small" />
                   </div>
                   <div class="min-30">
                     <a [routerLink]="'/product/' + item.product">

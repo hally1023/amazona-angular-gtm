@@ -10,6 +10,7 @@ export const productUpdateFeatureKey = 'productUpdate';
 export interface State {
   loading?: boolean;
   error?: any;
+  success?: boolean;
 }
 
 export const initialState: State = {};

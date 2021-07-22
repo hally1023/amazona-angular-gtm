@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { detailsProducts } from 'src/app/actions/product/details-product.actions';
+import { detailsProduct } from 'src/app/actions/product/details-product.actions';
 import { Product } from 'src/app/models/product.model';
 import { State } from 'src/app/reducers';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
@@ -34,7 +34,7 @@ export class ProductDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       const productId = params.id;
-      if (productId) this.store.dispatch(detailsProducts({ productId }));
+      if (productId) this.store.dispatch(detailsProduct({ productId }));
     });
 
     this.store

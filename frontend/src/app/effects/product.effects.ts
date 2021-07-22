@@ -10,9 +10,9 @@ import {
   listProductsSuccess,
 } from 'src/app/actions/product/list-product.actions';
 import {
-  detailsProducts,
-  detailsProductsFailure,
-  detailsProductsSuccess,
+  detailsProduct,
+  detailsProductFailure,
+  detailsProductSuccess,
 } from 'src/app/actions/product/details-product.actions';
 import {
   deleteProduct,
@@ -47,11 +47,11 @@ export class ProductEffects {
 
   detailsProduct$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(detailsProducts),
+      ofType(detailsProduct),
       exhaustMap((action) =>
         this.productService.getProductDetails(action.productId).pipe(
-          map((product) => detailsProductsSuccess({ data: product })),
-          catchError((error) => of(detailsProductsFailure({ error })))
+          map((product) => detailsProductSuccess({ data: product })),
+          catchError((error) => of(detailsProductFailure({ error })))
         )
       )
     )
