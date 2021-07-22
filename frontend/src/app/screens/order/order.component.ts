@@ -129,7 +129,7 @@ export class OrderComponent implements OnInit {
       if (orderId) {
         this.store.dispatch(orderDetails({ orderId }));
 
-        if (!this.order?.isPaid)
+        if (this.order && !this.order.isPaid)
           this.paypalService.fetchPaypalClientId().subscribe((clientId) => {
             this.paypalService.initiate(clientId).subscribe(() => {
               console.log(paypal);
@@ -161,5 +161,9 @@ export class OrderComponent implements OnInit {
       .subscribe((userInfo) => {
         this.userInfo = userInfo;
       });
+  }
+
+  ngOnDestroy() {
+    this.paypalService.remove();
   }
 }
