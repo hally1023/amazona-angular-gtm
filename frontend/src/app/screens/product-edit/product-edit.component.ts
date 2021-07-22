@@ -107,14 +107,6 @@ export class ProductEditComponent implements OnInit {
           this.category = product.category;
           this.image = product.image;
         }
-
-        if (this.successUpdate) {
-        }
-
-        if ((product && product._id !== this.productId) || this.successUpdate) {
-          this.store.dispatch(updateProductReset());
-          this.store.dispatch(detailsProduct({ productId: this.productId! }));
-        }
       });
 
     this.store
@@ -126,6 +118,7 @@ export class ProductEditComponent implements OnInit {
 
         if (productUpdate.success) {
           this.router.navigate([`/productlist`]);
+          this.store.dispatch(updateProductReset());
         }
       });
   }
