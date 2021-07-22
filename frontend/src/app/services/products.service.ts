@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { CreateProductPayload } from '../actions/product/create-product.actions';
 import { Product } from '../models/product.model';
 
 export const apiUrl = 'http://localhost:5000/api';
@@ -31,7 +30,7 @@ export class ProductsService {
     );
   }
 
-  public createProduct(product: CreateProductPayload) {
-    return this.http.post<Product>(`${this.apiUrl}/products`, product);
+  public createProduct() {
+    return this.http.post<{ product: Product }>(`${this.apiUrl}/products`, {});
   }
 }

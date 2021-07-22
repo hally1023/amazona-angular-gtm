@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { ProductsService } from 'src/app/services/products.service';
-import { catchError, exhaustMap, map } from 'rxjs/operators';
+import { catchError, exhaustMap, map, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
 
 import {
@@ -29,6 +29,7 @@ import {
   createProductFailure,
   createProductSuccess,
 } from '../actions/product/create-product.actions';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class ProductEffects {
@@ -83,9 +84,9 @@ export class ProductEffects {
   createProduct$ = createEffect(() =>
     this.actions$.pipe(
       ofType(createProduct),
-      exhaustMap((action) =>
-        this.productService.createProduct(action.product).pipe(
-          map((product) => createProductSuccess({ data: product })),
+      exhaustMap(() =>
+        this.productService.createProduct().pipe(
+          map((data) => createProductSuccess({ data: data.product })),
           catchError((error) => of(createProductFailure({ error })))
         )
       )
@@ -94,6 +95,7 @@ export class ProductEffects {
 
   constructor(
     private actions$: Actions,
-    private productService: ProductsService
+    private productService: ProductsService,
+    private router: Router
   ) {}
 }

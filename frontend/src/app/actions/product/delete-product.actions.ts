@@ -15,6 +15,5 @@ export const deleteProductFailure = createAction(
 );
 
 export const deleteProductReset = createAction(
-  '[DeleteProduct] Delete Product Reset',
-  props<{ error: any }>()
+  '[DeleteProduct] Delete Product Reset'
 );

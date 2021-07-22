@@ -2,6 +2,7 @@ import { Action, createReducer, on } from '@ngrx/store';
 import {
   createProduct,
   createProductFailure,
+  createProductReset,
   createProductSuccess,
 } from 'src/app/actions/product/create-product.actions';
 import { Product } from 'src/app/models/product.model';
@@ -12,6 +13,7 @@ export interface State {
   loading?: boolean;
   error?: any;
   product?: Product;
+  success?: boolean;
 }
 
 export const initialState: State = {};
@@ -25,5 +27,6 @@ export const reducer = createReducer(
     success: true,
     product: data,
   })),
-  on(createProductFailure, (_, { error }) => ({ loading: false, error }))
+  on(createProductFailure, (_, { error }) => ({ loading: false, error })),
+  on(createProductReset, (_) => ({}))
 );

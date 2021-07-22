@@ -1,1 +1,59 @@
-<p>product-list works!</p>
+<div>
+  <div class="row">
+    <h1>Products</h1>
+    <button type="button" class="primary" (click)="createHandler()">
+      Create Product
+    </button>
+  </div>
+
+  <app-loading-box *ngIf="loadingDelete"></app-loading-box>
+  <app-message-box *ngIf="errorDelete" variant="danger">{{
+    errorDelete
+  }}</app-message-box>
+
+  <app-loading-box *ngIf="loadingCreate"></app-loading-box>
+  <app-message-box *ngIf="errorCreate" variant="danger">{{
+    errorCreate
+  }}</app-message-box>
+
+  <app-loading-box *ngIf="loading"></app-loading-box>
+  <app-message-box *ngIf="error" variant="danger">{{ error }}</app-message-box>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>NAME</th>
+        <th>PRICE</th>
+        <th>CATEGORY</th>
+        <th>BRAND</th>
+        <th>ACTIONS</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of products">
+        <td>{{ product._id }}</td>
+        <td>{{ product.name }}</td>
+        <td>{{ product.price }}</td>
+        <td>{{ product.category }}</td>
+        <td>{{ product.brand }}</td>
+        <td>
+          <button
+            type="button"
+            class="small"
+            (click)="editHandler(product._id)"
+          >
+            Edit
+          </button>
+          <button
+            type="button"
+            class="small"
+            (click)="deleteHandler(product._id)"
+          >
+            Delete
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

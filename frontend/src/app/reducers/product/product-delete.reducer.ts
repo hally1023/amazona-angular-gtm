@@ -2,6 +2,7 @@ import { Action, createReducer, on } from '@ngrx/store';
 import {
   deleteProduct,
   deleteProductFailure,
+  deleteProductReset,
   deleteProductSuccess,
 } from 'src/app/actions/product/delete-product.actions';
 
@@ -19,5 +20,6 @@ export const reducer = createReducer(
   initialState,
   on(deleteProduct, (_) => ({ loading: true })),
   on(deleteProductSuccess, (_) => ({ loading: false, success: true })),
-  on(deleteProductFailure, (_, { error }) => ({ loading: false, error }))
+  on(deleteProductFailure, (_, { error }) => ({ loading: false, error })),
+  on(deleteProductReset, (_) => ({}))
 );
