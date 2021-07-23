@@ -24,6 +24,7 @@ import * as fromOrderDelete from './order/order-delete.reducer';
 import * as fromOrderDeliver from './order/order-deliver.reducer';
 import * as fromOrderRefund from './order/order-refund.reducer';
 import { gtag } from './meta/gtag.meta-reducer';
+import { gtm } from './meta/gtm.meta-reducer';
 
 export interface State {
   [fromCart.cartFeatureKey]: fromCart.State;
@@ -67,8 +68,8 @@ export const reducers: ActionReducerMap<State> = {
 };
 
 export const metaReducers: MetaReducer<State>[] = !environment.production
-  ? [gtag]
-  : [gtag];
+  ? [gtm]
+  : [gtm];
 
 export const selectProductList = createSelector(
   (state: State) => state.productList,

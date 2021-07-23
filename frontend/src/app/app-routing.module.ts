@@ -55,14 +55,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {
-  constructor(private router: Router) {
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        gtag('config', 'UA-165692234-4', {
-          page_path: event.urlAfterRedirects,
-        });
-      }
-    });
-  }
-}
+export class AppRoutingModule {}

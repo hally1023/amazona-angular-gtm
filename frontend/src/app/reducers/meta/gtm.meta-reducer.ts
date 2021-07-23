@@ -1,10 +1,9 @@
-import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { State } from 'src/app/reducers';
-import { Action, ActionReducer, MetaReducer } from '@ngrx/store';
-import { listProducts } from 'src/app/actions/product/list-product.actions';
-import { detailsProduct } from 'src/app/actions/product/details-product.actions';
+import { ActionReducer, MetaReducer } from '@ngrx/store';
+import { listProductsSuccess } from 'src/app/actions/product/list-product.actions';
+import { detailsProductSuccess } from 'src/app/actions/product/details-product.actions';
 import {
-  cartAddItem,
+  cartAddItemSuccess,
   cartRemoveItem,
   cartSavePaymentMethod,
   cartSaveShippingAddress,
@@ -12,111 +11,144 @@ import {
 import { orderPaySuccess } from 'src/app/actions/order/pay.actions';
 import { orderDeliverSuccess } from 'src/app/actions/order/deliver.actions';
 import { orderRefundSuccess } from 'src/app/actions/order/refund.actions';
+import { GtmService } from 'src/app/services/gtm.service';
+import { Product } from 'src/app/models/product.model';
+import { CartItem } from 'src/app/models/cart-item.model';
+
+const currencyCode = 'USD';
+
+const gtmService = new GtmService();
 
 export const gtm =
-  (reducer: ActionReducer<State, any>): ActionReducer<State, Action> =>
+  (reducer: ActionReducer<State, any>): ActionReducer<State, any> =>
   (state, action) => {
+    const cartItems = state?.cart.cartItems;
+
     switch (action.type) {
-      case listProducts.type:
-        console.log('LISTI ACTION', action);
-        console.log('STATE', state);
-        console.log(listProducts.type);
+      case listProductsSuccess.type:
+        dataLayer.push({ ecommerce: null });
+        dataLayer.push({
+          ecommerce: {
+            currencyCode, // Local currency is optional.
+            impressions: action.data.map((product: Product) =>
+              gtmService.mapProductToGtm(product)
+            ),
+          },
+        });
 
         break;
 
-      case detailsProduct.type:
-      // event({
-      //   eventName: "view_item",
-      //   details: {
-      //     content_type: "product",
-      //     items: [mapProductToGtag(action.payload)],
-      //   },
-      // });
+      case detailsProductSuccess.type:
+        dataLayer.push({ ecommerce: null });
+        dataLayer.push({
+          ecommerce: {
+            detail: {
+              actionField: { list: 'Apparel Gallery' }, // 'detail' actions have an optional list property.
+              products: [gtmService.mapProductToGtm(action.data)],
+            },
+          },
+        });
+        break;
 
-      case cartAddItem.type:
-      // event({
-      //   eventName: "add_to_cart",
-      //   details: {
-      //     items: [mapCartItemToGtag(action.payload)],
-      //   },
-      // });
+      case cartAddItemSuccess.type:
+        dataLayer.push({ ecommerce: null });
+        dataLayer.push({
+          event: 'addToCart',
+          ecommerce: {
+            currencyCode,
+            add: {
+              products: [gtmService.mapCartItemToGtm(action.item)],
+            },
+          },
+        });
+        break;
 
       case cartRemoveItem.type:
-      // event({
-      //   eventName: "remove_from_cart",
-      //   details: {
-      //     items: action.payload,
-      //   },
-      // });
+        dataLayer.push({ ecommerce: null });
+        dataLayer.push({
+          event: 'removeFromCart',
+          ecommerce: {
+            remove: {
+              // 'remove' actionFieldObject measures.
+              products: [action.productId],
+            },
+          },
+        });
+        break;
 
       case cartSaveShippingAddress.type:
-      // event({
-      //   eventName: "begin_checkout",
-      //   details: {
-      //     items: cartItems.map((item) => mapCartItemToGtag(item)),
-      //   },
-      // });
-      // event({
-      //   eventName: "checkout_progress",
-      //   details: {
-      //     items: cartItems.map((item) => mapCartItemToGtag(item)),
-      //   },
-      // });
+        dataLayer.push({ ecommerce: null });
+        dataLayer.push({
+          event: 'checkout',
+          ecommerce: {
+            checkout: {
+              products: cartItems?.map((item) =>
+                gtmService.mapCartItemToGtm(item)
+              ),
+            },
+          },
+        });
+        break;
 
       case cartSavePaymentMethod.type:
-      // event({
-      //   eventName: "set_checkout_option",
-      //   details: {
-      //     checkout_step: 2,
-      //     checkout_option: "payment method",
-      //     value: action.payload,
-      //   },
-      // });
-      // event({
-      //   eventName: "checkout_progress",
-      //   details: {
-      //     items: cartItems.map((item) => mapCartItemToGtag(item)),
-      //   },
-      // });
+        dataLayer.push({ ecommerce: null });
+        dataLayer.push({
+          event: 'checkoutOption',
+          ecommerce: {
+            checkout_option: {
+              actionField: {
+                step: 'payment method',
+                option: action.paymentMethod,
+              },
+            },
+          },
+        });
+        break;
 
       case orderPaySuccess.type:
-      // event({
-      //   eventName: "purchase",
-      //   details: {
-      //     transaction_id: order._id,
-      //     value: order.itemsPrice,
-      //     currency: "USD",
-      //     tax: order.taxPrice,
-      //     shipping: order.shippingPrice,
-      //     items: order.orderItems.map((item) => mapCartItemToGtag(item)),
-      //   },
-      // });
+        dataLayer.push({ ecommerce: null });
+        dataLayer.push({
+          ecommerce: {
+            purchase: {
+              actionField: {
+                id: action.order._id,
+                affiliation: 'Online Store',
+                revenue: action.order.itemsPrice,
+
+                currency: 'USD',
+                tax: action.order.taxPrice,
+                shipping: action.order.shippingPrice,
+              },
+              products: action.order.orderItems.map((item: CartItem) =>
+                gtmService.mapCartItemToGtm(item)
+              ),
+            },
+          },
+        });
+        break;
 
       case orderDeliverSuccess.type:
-      // event({
-      //   eventName: "order_delivered",
-      //   details: {
-      //     transaction_id: order._id,
-      //     value: order.itemsPrice,
-      //     currency: "USD",
-      //     tax: order.taxPrice,
-      //     shipping: order.shippingPrice,
-      //     items: order.orderItems.map((item) => mapCartItemToGtag(item)),
-      //   },
-      // });
+        dataLayer.push({ ecommerce: null });
+        dataLayer.push({
+          ecommerce: {
+            order_delivered: {
+              actionField: { id: action.order._id }, // Transaction ID. Required for purchases and refunds.
+            },
+          },
+        });
+        break;
 
       case orderRefundSuccess.type:
-      // event({
-      //   eventName: "refund",
-      //   details: {
-      //     transaction_id: order._id,
-      //     value: order.itemsPrice,
-      //     currency: "USD",
-      //     tax: order.taxPrice,
-      //     shipping: order.shippingPrice,
-      //     items: order.orderItems.map((item) => mapCartItemToGtag(item)),
-      //   },
-      // });
+        dataLayer.push({ ecommerce: null });
+        dataLayer.push({
+          ecommerce: {
+            refund: {
+              actionField: { id: action.order._id }, // Transaction ID. Required for purchases and refunds.
+            },
+          },
+        });
+
+        break;
 
       default:
         break;
@@ -124,24 +156,3 @@ export const gtm =
 
     return reducer(state, action);
   };
-
-//   const mapCartItemToGtm = (product) => {
-//     return {
-//       name: product.name,
-//       list_name: "List",
-//       quantity: product?.qty,
-//       price: product.price,
-//     };
-//   };
-
-//   const mapProductToGtm = (product) => {
-//     return {
-//       id: product._id,
-//       name: product.name,
-//       list_name: "List",
-//       brand: product.brand,
-//       category: product.category,
-//       quantity: product?.countInStock,
-//       price: product.price,
-//     };
-//   };
