@@ -79,7 +79,7 @@ export class OrderEffects {
       ofType(orderDeliver),
       exhaustMap((action) =>
         this.orderService.deliverOrder(action.orderId).pipe(
-          map(() => orderDeliverSuccess()),
+          map((data) => orderDeliverSuccess({ order: (data as any).order })),
           catchError((error) => of(orderDeliverFailure({ error })))
         )
       )
@@ -127,7 +127,7 @@ export class OrderEffects {
       ofType(orderPay),
       exhaustMap((action) =>
         this.orderService.payOrder(action.orderId, action.paymentResult).pipe(
-          map(() => orderPaySuccess()),
+          map((data) => orderPaySuccess({ order: data.order })),
           catchError((error) => of(orderPayFailure({ error })))
         )
       )
@@ -139,7 +139,7 @@ export class OrderEffects {
       ofType(orderRefund),
       exhaustMap((action) =>
         this.orderService.refundOrder(action.orderId).pipe(
-          map(() => orderRefundSuccess()),
+          map((data) => orderRefundSuccess({ order: data.order })),
           catchError((error) => of(orderRefundFailure({ error })))
         )
       )

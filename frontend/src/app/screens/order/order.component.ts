@@ -128,8 +128,18 @@ export class OrderComponent implements OnInit {
       this.orderId = orderId;
       if (orderId) {
         this.store.dispatch(orderDetails({ orderId }));
+      }
+    });
 
-        if (this.order && !this.order.isPaid)
+    this.store
+      .select((state) => state.orderDetails)
+      .subscribe((orderDetails) => {
+        this.error = orderDetails.error;
+        this.loading = orderDetails.loading;
+        this.order = orderDetails.order;
+
+        const order = orderDetails.order;
+        if (order && !order.isPaid)
           this.paypalService.fetchPaypalClientId().subscribe((clientId) => {
             this.paypalService.initiate(clientId).subscribe(() => {
               console.log(paypal);
@@ -145,15 +155,6 @@ export class OrderComponent implements OnInit {
                 .render(this.paypalRef.nativeElement);
             });
           });
-      }
-    });
-
-    this.store
-      .select((state) => state.orderDetails)
-      .subscribe((orderDetails) => {
-        this.error = orderDetails.error;
-        this.loading = orderDetails.loading;
-        this.order = orderDetails.order;
       });
 
     this.store

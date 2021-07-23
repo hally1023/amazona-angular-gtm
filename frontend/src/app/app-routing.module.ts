@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { NavigationEnd, Router, RouterModule, Routes } from '@angular/router';
 import { AdminGuard } from './helpers/admin.guard';
 import { AuthGuard } from './helpers/auth.guard';
 import { CartComponent } from './screens/cart/cart.component';
@@ -55,4 +55,14 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule {
+  constructor(private router: Router) {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        gtag('config', 'UA-165692234-4', {
+          page_path: event.urlAfterRedirects,
+        });
+      }
+    });
+  }
+}

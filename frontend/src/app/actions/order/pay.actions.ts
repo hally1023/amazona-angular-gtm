@@ -13,7 +13,10 @@ export const orderPay = createAction(
   props<{ paymentResult: PaymentResultPayload; orderId: string }>()
 );
 
-export const orderPaySuccess = createAction('[Pay] Order Pay Success');
+export const orderPaySuccess = createAction(
+  '[Pay] Order Pay Success',
+  props<{ order: Order }>()
+);
 
 export const orderPayFailure = createAction(
   '[Pay] Order Pay Failure',

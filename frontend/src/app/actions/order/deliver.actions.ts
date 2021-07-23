@@ -1,4 +1,5 @@
 import { createAction, props } from '@ngrx/store';
+import { Order } from 'src/app/models/order.model';
 
 export const orderDeliver = createAction(
   '[Deliver] Order Deliver',
@@ -6,7 +7,8 @@ export const orderDeliver = createAction(
 );
 
 export const orderDeliverSuccess = createAction(
-  '[Deliver] Order Deliver Success'
+  '[Deliver] Order Deliver Success',
+  props<{ order: Order }>()
 );
 
 export const orderDeliverFailure = createAction(
