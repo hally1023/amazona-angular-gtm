@@ -60,7 +60,7 @@ export class PlaceOrderComponent implements OnInit {
             paymentMethod: this.paymentMethod,
             shippingAddress: this.shippingAddress,
             shippingPrice: this.shippingPrice(),
-            taxPrice: this.shippingPrice(),
+            taxPrice: this.taxPrice(),
             totalPrice: this.totalPrice(),
           },
         })
