@@ -108,6 +108,7 @@ export const gtm =
       case orderPaySuccess.type:
         dataLayer.push({ ecommerce: null });
         dataLayer.push({
+          event: 'purchase',
           ecommerce: {
             purchase: {
               actionField: {
