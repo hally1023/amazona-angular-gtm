@@ -131,6 +131,7 @@ export const gtm =
       case orderDeliverSuccess.type:
         dataLayer.push({ ecommerce: null });
         dataLayer.push({
+          event: 'order_delivered',
           ecommerce: {
             order_delivered: {
               actionField: { id: action.order._id }, // Transaction ID. Required for purchases and refunds.
@@ -142,6 +143,7 @@ export const gtm =
       case orderRefundSuccess.type:
         dataLayer.push({ ecommerce: null });
         dataLayer.push({
+          event: 'refund',
           ecommerce: {
             refund: {
               actionField: { id: action.order._id }, // Transaction ID. Required for purchases and refunds.
